@@ -15,3 +15,5 @@ Feature Maps: The output obtained after applying a kernel/filter over an input i
 Activation Function: An activation function determines whether the input (summation of weighted sum of inputs and bias) from a node to be fired or not.
 
 Receptive Field: It is defined as the region in the input space that a particular CNN’s feature is looking at after one or more layers of convolution.
+
+Assignment 1 Score: [0.10314206821306968, 0.9924]
