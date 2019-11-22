@@ -69,10 +69,10 @@ Epoch 20/20
 [0.024351534522185102, 0.9934]
 
 ## Startegy-1
-I have made two blocks of convolutin
+I have made two blocks of convolutins
 In each block there are two convolution layers. 2 3X3 conv layers and one 1x1 conv layer followed by max pooling.
 But I didn't incorporate learning rate scheduler as it is taking lot of time.
-May be if I impleemnt that I may get 99.4 test accuracy.
+May be if I implemnt that I may get 99.4 test accuracy.
 
 
  ### Parmeters
@@ -81,9 +81,9 @@ Trainable params: 15,598
 Non-trainable params: 212
 
 ## Startegy-2
-This time I scheduled learning rate and was able to aacheive 99.38 test accuracy. Validation accuracy reached ..994 at least six times.
+This time I scheduled learning rate and was able to aacheive 99.38 test accuracy. Validation accuracy reached 0.994 at least six times in the 20 epochs.
 
-Logs of 20 Epocs agter scheduling learning rate
+Logs of 20 Epocs after scheduling learning rate
 Train on 60000 samples, validate on 10000 samples
 Epoch 1/20
 
@@ -173,4 +173,140 @@ score = model.evaluate(X_test, Y_test, verbose=0)
 print(score)
 [0.018072435555551783, 0.9938]
 
+## Startegy-3
+I know the above architecture slightly exceeded 15000 parameters. This time I have slightly changed the architecture by reducing the last point convolution layer channels to 10 instead of 16 (10 beacuse I have 10 classes.). This architecture along with the learning rate scheduler, 99.4 test accuracy was acheived within 15000 parameters and 20 epochs.
 
+### Epochs
+Train on 60000 samples, validate on 10000 samples
+Epoch 1/20
+
+Epoch 00001: LearningRateScheduler setting learning rate to 0.003.
+60000/60000 [==============================] - 12s 207us/step - loss: 0.4338 - acc: 0.8747 - val_loss: 0.0921 - val_acc: 0.9828
+Epoch 2/20
+
+Epoch 00002: LearningRateScheduler setting learning rate to 0.0022744503.
+60000/60000 [==============================] - 9s 158us/step - loss: 0.2263 - acc: 0.9257 - val_loss: 0.0573 - val_acc: 0.9878
+Epoch 3/20
+
+Epoch 00003: LearningRateScheduler setting learning rate to 0.0018315018.
+60000/60000 [==============================] - 10s 159us/step - loss: 0.1841 - acc: 0.9384 - val_loss: 0.0466 - val_acc: 0.9900
+Epoch 4/20
+
+Epoch 00004: LearningRateScheduler setting learning rate to 0.0015329586.
+60000/60000 [==============================] - 9s 156us/step - loss: 0.1590 - acc: 0.9431 - val_loss: 0.0397 - val_acc: 0.9911
+Epoch 5/20
+
+Epoch 00005: LearningRateScheduler setting learning rate to 0.0013181019.
+60000/60000 [==============================] - 9s 156us/step - loss: 0.1449 - acc: 0.9471 - val_loss: 0.0439 - val_acc: 0.9878
+Epoch 6/20
+
+Epoch 00006: LearningRateScheduler setting learning rate to 0.0011560694.
+60000/60000 [==============================] - 9s 156us/step - loss: 0.1370 - acc: 0.9472 - val_loss: 0.0371 - val_acc: 0.9908
+Epoch 7/20
+
+Epoch 00007: LearningRateScheduler setting learning rate to 0.0010295127.
+60000/60000 [==============================] - 9s 155us/step - loss: 0.1299 - acc: 0.9490 - val_loss: 0.0290 - val_acc: 0.9919
+Epoch 8/20
+
+Epoch 00008: LearningRateScheduler setting learning rate to 0.0009279307.
+60000/60000 [==============================] - 9s 155us/step - loss: 0.1252 - acc: 0.9497 - val_loss: 0.0318 - val_acc: 0.9906
+Epoch 9/20
+
+Epoch 00009: LearningRateScheduler setting learning rate to 0.0008445946.
+60000/60000 [==============================] - 9s 156us/step - loss: 0.1228 - acc: 0.9498 - val_loss: 0.0294 - val_acc: 0.9920
+Epoch 10/20
+
+Epoch 00010: LearningRateScheduler setting learning rate to 0.0007749935.
+60000/60000 [==============================] - 9s 155us/step - loss: 0.1184 - acc: 0.9512 - val_loss: 0.0314 - val_acc: 0.9908
+Epoch 11/20
+
+Epoch 00011: LearningRateScheduler setting learning rate to 0.0007159905.
+60000/60000 [==============================] - 9s 154us/step - loss: 0.1109 - acc: 0.9536 - val_loss: 0.0243 - val_acc: 0.9933
+Epoch 12/20
+
+Epoch 00012: LearningRateScheduler setting learning rate to 0.000665336.
+60000/60000 [==============================] - 9s 157us/step - loss: 0.1124 - acc: 0.9524 - val_loss: 0.0243 - val_acc: 0.9927
+Epoch 13/20
+
+Epoch 00013: LearningRateScheduler setting learning rate to 0.0006213753.
+60000/60000 [==============================] - 10s 162us/step - loss: 0.1119 - acc: 0.9524 - val_loss: 0.0234 - val_acc: 0.9930
+Epoch 14/20
+
+Epoch 00014: LearningRateScheduler setting learning rate to 0.0005828638.
+60000/60000 [==============================] - 9s 155us/step - loss: 0.1060 - acc: 0.9542 - val_loss: 0.0232 - val_acc: 0.9937
+Epoch 15/20
+
+Epoch 00015: LearningRateScheduler setting learning rate to 0.0005488474.
+60000/60000 [==============================] - 9s 156us/step - loss: 0.1072 - acc: 0.9537 - val_loss: 0.0236 - val_acc: 0.9935
+Epoch 16/20
+
+Epoch 00016: LearningRateScheduler setting learning rate to 0.0005185825.
+60000/60000 [==============================] - 9s 155us/step - loss: 0.1056 - acc: 0.9539 - val_loss: 0.0213 - val_acc: 0.9941
+Epoch 17/20
+
+Epoch 00017: LearningRateScheduler setting learning rate to 0.000491481.
+60000/60000 [==============================] - 9s 152us/step - loss: 0.1073 - acc: 0.9530 - val_loss: 0.0227 - val_acc: 0.9934
+Epoch 18/20
+
+Epoch 00018: LearningRateScheduler setting learning rate to 0.0004670715.
+60000/60000 [==============================] - 9s 154us/step - loss: 0.1020 - acc: 0.9549 - val_loss: 0.0212 - val_acc: 0.9939
+Epoch 19/20
+
+Epoch 00019: LearningRateScheduler setting learning rate to 0.0004449718.
+60000/60000 [==============================] - 9s 154us/step - loss: 0.1009 - acc: 0.9559 - val_loss: 0.0205 - val_acc: 0.9942
+Epoch 20/20
+
+Epoch 00020: LearningRateScheduler setting learning rate to 0.000424869.
+60000/60000 [==============================] - 9s 154us/step - loss: 0.1008 - acc: 0.9558 - val_loss: 0.0216 - val_acc: 0.9941
+
+### Architecture
+Layer (type)                 Output Shape              Param #   
+=================================================================
+conv2d_20 (Conv2D)           (None, 26, 26, 16)        160       
+_________________________________________________________________
+batch_normalization_14 (Batc (None, 26, 26, 16)        64        
+_________________________________________________________________
+dropout_14 (Dropout)         (None, 26, 26, 16)        0         
+_________________________________________________________________
+conv2d_21 (Conv2D)           (None, 24, 24, 32)        4640      
+_________________________________________________________________
+batch_normalization_15 (Batc (None, 24, 24, 32)        128       
+_________________________________________________________________
+dropout_15 (Dropout)         (None, 24, 24, 32)        0         
+_________________________________________________________________
+conv2d_22 (Conv2D)           (None, 24, 24, 16)        528       
+_________________________________________________________________
+max_pooling2d_7 (MaxPooling2 (None, 12, 12, 16)        0         
+_________________________________________________________________
+conv2d_23 (Conv2D)           (None, 10, 10, 16)        2320      
+_________________________________________________________________
+batch_normalization_16 (Batc (None, 10, 10, 16)        64        
+_________________________________________________________________
+dropout_16 (Dropout)         (None, 10, 10, 16)        0         
+_________________________________________________________________
+conv2d_24 (Conv2D)           (None, 8, 8, 32)          4640      
+_________________________________________________________________
+batch_normalization_17 (Batc (None, 8, 8, 32)          128       
+_________________________________________________________________
+dropout_17 (Dropout)         (None, 8, 8, 32)          0         
+_________________________________________________________________
+max_pooling2d_8 (MaxPooling2 (None, 4, 4, 32)          0         
+_________________________________________________________________
+conv2d_25 (Conv2D)           (None, 4, 4, 10)          330       
+_________________________________________________________________
+conv2d_26 (Conv2D)           (None, 1, 1, 10)          1610      
+_________________________________________________________________
+batch_normalization_18 (Batc (None, 1, 1, 10)          40        
+_________________________________________________________________
+dropout_18 (Dropout)         (None, 1, 1, 10)          0         
+_________________________________________________________________
+flatten_4 (Flatten)          (None, 10)                0         
+_________________________________________________________________
+activation_4 (Activation)    (None, 10)                0         
+=================================================================
+Total params: 14,652
+Trainable params: 14,440
+Non-trainable params: 212
+
+### Test Accuracy
+[0.021593860066635533, 0.9941]
