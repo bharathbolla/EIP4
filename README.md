@@ -65,13 +65,12 @@ Epoch 20/20
 
 <keras.callbacks.History at 0x7f90e07991d0>
 
-### Model Test Score
-[0.024351534522185102, 0.9934]
+
 
 ## Startegy-1
 I have made two blocks of convolutins
 In each block there are two convolution layers. 2 3X3 conv layers and one 1x1 conv layer followed by max pooling.
-But I didn't incorporate learning rate scheduler as it is taking lot of time.
+But I didn't incorporate learning rate scheduler.
 May be if I implemnt that I may get 99.4 test accuracy.
 
 
@@ -79,6 +78,11 @@ May be if I implemnt that I may get 99.4 test accuracy.
  Total params: 15,810
 Trainable params: 15,598
 Non-trainable params: 212
+
+### Model Test Score
+[0.024351534522185102, 0.9934]
+
+
 
 ## Startegy-2
 This time I scheduled learning rate and was able to aacheive 99.38 test accuracy. Validation accuracy reached 0.994 at least six times in the 20 epochs.
@@ -172,6 +176,7 @@ Epoch 00020: LearningRateScheduler setting learning rate to 0.000424869.
 score = model.evaluate(X_test, Y_test, verbose=0)
 print(score)
 [0.018072435555551783, 0.9938]
+
 
 ## Startegy-3
 I know the above architecture slightly exceeded 15000 parameters. This time I have slightly changed the architecture by reducing the last point convolution layer channels to 10 instead of 16 (10 beacuse I have 10 classes.). This architecture along with the learning rate scheduler, 99.4 test accuracy was acheived within 15000 parameters and 20 epochs.
@@ -310,3 +315,7 @@ Non-trainable params: 212
 
 ### Test Accuracy
 [0.021593860066635533, 0.9941]
+
+Notebook 1: https://github.com/bharathbolla/EIP4/blob/master/Assignment_2.ipynb
+Notebook 2: https://github.com/bharathbolla/EIP4/blob/master/Assignment_2_with%20LR_Schedule.ipynb
+Notebook 3: https://github.com/bharathbolla/EIP4/blob/master/EIP4_Assignment2_Ver3.0.ipynb
