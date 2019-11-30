@@ -18,14 +18,15 @@ o	Padding helped in identifying images that are extended till the borders of the
 •	As overfitting is starting after 10 epochs, we can quickly prototype the hyperparameters or different architectures within 20 epochs
 •	Any better strategy should yield clear gains in first 10 epochs.
 o	In my case  padding, increase in layers and Rohan’s LR improved accuracy within 10 epochs
-### Padding is very important as it preserves the output channel size (this helps in adding more layers) and the images are extended till the borders (this is avery small image size 32x32)
+### Padding is very important as it preserves the output channel size (this helps in adding more layers) and the images are extended till the borders (the input image size is relatively small, 32x32)
 
 Things That Might Work:
 •	Data augmentation would have increased validation accuracy
 
-## Final Validation accuracy for Base Network = 0.8233
+### Final Validation accuracy for Base Network = 0.8233
 
 ### Crossed 82.33 (This is the accuracy I need to cross) in the 24th epoch and highest validation score of 83.47 reached in 41st epoch
+
 ## Logs
 Epoch 1/50
 
