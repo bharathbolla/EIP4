@@ -27,6 +27,57 @@ Things That Might Work:
 
 ### Crossed 82.33 (This is the accuracy I need to cross) in the 24th epoch and highest validation score of 83.47 reached in 41st epoch
 
+## Model.Add
+model = Sequential()
+model.add(SeparableConv2D(filters = 14, kernel_size = 3, padding='same', activation='relu',  input_shape=(32, 32, 3)))
+model.add(BatchNormalization())
+model.add(Dropout(0.1)) 
+model.add(SeparableConv2D(filters = 28, kernel_size = 3, padding='same', activation='relu'))#32x32x28 RF = 5
+model.add(BatchNormalization())
+model.add(Dropout(0.1))
+model.add(SeparableConv2D(filters = 56, kernel_size = 3, padding='same', activation='relu'))#32x32x56 RF = 7
+model.add(BatchNormalization())
+model.add(Dropout(0.1))
+model.add(SeparableConv2D(filters = 112, kernel_size = 3, padding='same', activation='relu'))#32x32x112 RF = 9
+model.add(BatchNormalization())
+model.add(Dropout(0.1))
+model.add(SeparableConv2D(filters = 224, kernel_size = 3, padding='same', activation='relu'))#32x32x224 RF = 11
+model.add(BatchNormalization())
+model.add(Dropout(0.1))
+model.add(MaxPooling2D(pool_size=(2, 2))) #16x16x224 RF = 12
+
+model.add(SeparableConv2D(filters = 28, kernel_size = 3, padding='same', activation='relu'))#16x16x28 RF = 16
+model.add(BatchNormalization())
+model.add(Dropout(0.1))
+model.add(SeparableConv2D(filters = 56, kernel_size = 3, padding='same', activation='relu' ))#16x16x56 RF = 20
+model.add(BatchNormalization())
+model.add(Dropout(0.1))
+model.add(SeparableConv2D(filters = 112, kernel_size = 3, padding='same', activation='relu'))#16x16x112 RF = 24
+model.add(BatchNormalization())
+model.add(Dropout(0.1))
+model.add(SeparableConv2D(filters = 224, kernel_size = 3, padding='same', activation='relu'))#16x16x224 RF = 32
+model.add(BatchNormalization())
+model.add(Dropout(0.1))
+model.add(MaxPooling2D(pool_size=(2, 2))) #8x8x224 RF = 30
+
+model.add(SeparableConv2D(filters = 28, kernel_size = 3, activation='relu'))#6x6xx28 RF = 38
+model.add(BatchNormalization())
+model.add(Dropout(0.1))
+model.add(SeparableConv2D(filters = 56, kernel_size = 3, activation='relu'))#4x4x56 RF = 46
+model.add(BatchNormalization())
+model.add(Dropout(0.1))
+model.add(SeparableConv2D(filters = 112, kernel_size = 3, activation='relu'))#2x2x112 RF = 54
+model.add(BatchNormalization())
+model.add(Dropout(0.1))
+
+model.add(Convolution2D(10, 1, 1, activation='relu')) #2x2x10 RF = 54
+model.add(BatchNormalization())
+model.add(Dropout(0.1))
+model.add(GlobalAveragePooling2D()) # 10x1
+#model.add(Flatten())
+model.add(Activation('softmax'))
+model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+
 ## Logs
 Epoch 1/50
 
