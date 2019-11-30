@@ -31,10 +31,12 @@ Things That Might Work:
 model = Sequential()
 model.add(SeparableConv2D(filters = 14, kernel_size = 3, padding='same', activation='relu',  input_shape=(32, 32, 3)))
 model.add(BatchNormalization())
-model.add(Dropout(0.1)) 
+model.add(Dropout(0.1))
+
 model.add(SeparableConv2D(filters = 28, kernel_size = 3, padding='same', activation='relu'))#32x32x28 RF = 5
 model.add(BatchNormalization())
 model.add(Dropout(0.1))
+
 model.add(SeparableConv2D(filters = 56, kernel_size = 3, padding='same', activation='relu'))#32x32x56 RF = 7
 model.add(BatchNormalization())
 model.add(Dropout(0.1))
