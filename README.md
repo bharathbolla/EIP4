@@ -3,7 +3,8 @@
 ## Completed and saved annotations (assignment 4a)
 
 ## Acheived 88% accuracy for ResNet38V2 with 32 filters and 4.45 million parameters in 48th epoch.
-### Did't do augmentataion but tried several ResNet architectures, ResNet20V1, ResNet29V2 etc
+### Performed GRAD-CAM activation.
+## Got 88% acuracy with batch size =32,64 and 128. Observed that batch size has regularizing effect. LOwer the batch size , higher the regularization. Found this paper (https://openreview.net/pdf?id=B1Yy1BxCZ) titled; "Don't Decay the Learning Rate, Increase the Batch Size"
 ### My savel model got disappeared after my colab got disconnected. I couldn't do GradCam
 
 
