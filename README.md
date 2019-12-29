@@ -1,322 +1,453 @@
-# EIP4- Assignment_1
+# EIP4- Assignment_5
 
+## Final Accuracies: 
+### val_gender_output_acc: 0.8536 ; val_image_quality_output_acc: 0.7145;
+### val_age_output_acc: 0.7901 ; val_weight_output_acc: 0.7681 ;
+### val_bag_output_acc: 0.7584 ; val_footwear_output_acc: 0.7734 ;
+### val_pose_output_acc: 0.8564 - val_emotion_output_acc: 0.8285 ;
 
-Convolution: Convolution is an information aggregation process by reducing noise. This is accomplished by applying a filter over an input.
+## Settled with Resnet146V1 with 32 filters. Changed last layer activation to 'sigmoid' and loss to "binary cross entropy", this improved my accuracy scores. Also added droput. 
 
-Filter/Kernel: An operator (a matrix of inputs) applied over an input to generate features (patterns)
+## Model: ResNet146v1
+## Parameters
+### Total params: 1,090,715
+### Trainable params: 1,087,963
+### Non-trainable params: 2,752
+Model: "model_14"
+__________________________________________________________________________________________________
+Layer (type)                    Output Shape         Param #     Connected to                     
+==================================================================================================
+input_16 (InputLayer)           (None, 224, 224, 3)  0                                            
+__________________________________________________________________________________________________
+conv2d_423 (Conv2D)             (None, 224, 224, 32) 896         input_16[0][0]                   
+__________________________________________________________________________________________________
+batch_normalization_392 (BatchN (None, 224, 224, 32) 128         conv2d_423[0][0]                 
+__________________________________________________________________________________________________
+activation_392 (Activation)     (None, 224, 224, 32) 0           batch_normalization_392[0][0]    
+__________________________________________________________________________________________________
+dropout_315 (Dropout)           (None, 224, 224, 32) 0           activation_392[0][0]             
+__________________________________________________________________________________________________
+conv2d_424 (Conv2D)             (None, 224, 224, 32) 9248        dropout_315[0][0]                
+__________________________________________________________________________________________________
+batch_normalization_393 (BatchN (None, 224, 224, 32) 128         conv2d_424[0][0]                 
+__________________________________________________________________________________________________
+activation_393 (Activation)     (None, 224, 224, 32) 0           batch_normalization_393[0][0]    
+__________________________________________________________________________________________________
+dropout_316 (Dropout)           (None, 224, 224, 32) 0           activation_393[0][0]             
+__________________________________________________________________________________________________
+conv2d_425 (Conv2D)             (None, 224, 224, 32) 9248        dropout_316[0][0]                
+__________________________________________________________________________________________________
+batch_normalization_394 (BatchN (None, 224, 224, 32) 128         conv2d_425[0][0]                 
+__________________________________________________________________________________________________
+add_151 (Add)                   (None, 224, 224, 32) 0           dropout_315[0][0]                
+                                                                 batch_normalization_394[0][0]    
+__________________________________________________________________________________________________
+activation_394 (Activation)     (None, 224, 224, 32) 0           add_151[0][0]                    
+__________________________________________________________________________________________________
+conv2d_426 (Conv2D)             (None, 224, 224, 32) 9248        activation_394[0][0]             
+__________________________________________________________________________________________________
+batch_normalization_395 (BatchN (None, 224, 224, 32) 128         conv2d_426[0][0]                 
+__________________________________________________________________________________________________
+activation_395 (Activation)     (None, 224, 224, 32) 0           batch_normalization_395[0][0]    
+__________________________________________________________________________________________________
+dropout_317 (Dropout)           (None, 224, 224, 32) 0           activation_395[0][0]             
+__________________________________________________________________________________________________
+conv2d_427 (Conv2D)             (None, 224, 224, 32) 9248        dropout_317[0][0]                
+__________________________________________________________________________________________________
+batch_normalization_396 (BatchN (None, 224, 224, 32) 128         conv2d_427[0][0]                 
+__________________________________________________________________________________________________
+add_152 (Add)                   (None, 224, 224, 32) 0           activation_394[0][0]             
+                                                                 batch_normalization_396[0][0]    
+__________________________________________________________________________________________________
+activation_396 (Activation)     (None, 224, 224, 32) 0           add_152[0][0]                    
+__________________________________________________________________________________________________
+conv2d_428 (Conv2D)             (None, 224, 224, 32) 9248        activation_396[0][0]             
+__________________________________________________________________________________________________
+batch_normalization_397 (BatchN (None, 224, 224, 32) 128         conv2d_428[0][0]                 
+__________________________________________________________________________________________________
+activation_397 (Activation)     (None, 224, 224, 32) 0           batch_normalization_397[0][0]    
+__________________________________________________________________________________________________
+dropout_318 (Dropout)           (None, 224, 224, 32) 0           activation_397[0][0]             
+__________________________________________________________________________________________________
+conv2d_429 (Conv2D)             (None, 224, 224, 32) 9248        dropout_318[0][0]                
+__________________________________________________________________________________________________
+batch_normalization_398 (BatchN (None, 224, 224, 32) 128         conv2d_429[0][0]                 
+__________________________________________________________________________________________________
+add_153 (Add)                   (None, 224, 224, 32) 0           activation_396[0][0]             
+                                                                 batch_normalization_398[0][0]    
+__________________________________________________________________________________________________
+activation_398 (Activation)     (None, 224, 224, 32) 0           add_153[0][0]                    
+__________________________________________________________________________________________________
+conv2d_430 (Conv2D)             (None, 112, 112, 64) 18496       activation_398[0][0]             
+__________________________________________________________________________________________________
+batch_normalization_399 (BatchN (None, 112, 112, 64) 256         conv2d_430[0][0]                 
+__________________________________________________________________________________________________
+activation_399 (Activation)     (None, 112, 112, 64) 0           batch_normalization_399[0][0]    
+__________________________________________________________________________________________________
+dropout_319 (Dropout)           (None, 112, 112, 64) 0           activation_399[0][0]             
+__________________________________________________________________________________________________
+conv2d_431 (Conv2D)             (None, 112, 112, 64) 36928       dropout_319[0][0]                
+__________________________________________________________________________________________________
+conv2d_432 (Conv2D)             (None, 112, 112, 64) 2112        activation_398[0][0]             
+__________________________________________________________________________________________________
+batch_normalization_400 (BatchN (None, 112, 112, 64) 256         conv2d_431[0][0]                 
+__________________________________________________________________________________________________
+add_154 (Add)                   (None, 112, 112, 64) 0           conv2d_432[0][0]                 
+                                                                 batch_normalization_400[0][0]    
+__________________________________________________________________________________________________
+activation_400 (Activation)     (None, 112, 112, 64) 0           add_154[0][0]                    
+__________________________________________________________________________________________________
+conv2d_433 (Conv2D)             (None, 112, 112, 64) 36928       activation_400[0][0]             
+__________________________________________________________________________________________________
+batch_normalization_401 (BatchN (None, 112, 112, 64) 256         conv2d_433[0][0]                 
+__________________________________________________________________________________________________
+activation_401 (Activation)     (None, 112, 112, 64) 0           batch_normalization_401[0][0]    
+__________________________________________________________________________________________________
+dropout_320 (Dropout)           (None, 112, 112, 64) 0           activation_401[0][0]             
+__________________________________________________________________________________________________
+conv2d_434 (Conv2D)             (None, 112, 112, 64) 36928       dropout_320[0][0]                
+__________________________________________________________________________________________________
+batch_normalization_402 (BatchN (None, 112, 112, 64) 256         conv2d_434[0][0]                 
+__________________________________________________________________________________________________
+add_155 (Add)                   (None, 112, 112, 64) 0           activation_400[0][0]             
+                                                                 batch_normalization_402[0][0]    
+__________________________________________________________________________________________________
+activation_402 (Activation)     (None, 112, 112, 64) 0           add_155[0][0]                    
+__________________________________________________________________________________________________
+conv2d_435 (Conv2D)             (None, 112, 112, 64) 36928       activation_402[0][0]             
+__________________________________________________________________________________________________
+batch_normalization_403 (BatchN (None, 112, 112, 64) 256         conv2d_435[0][0]                 
+__________________________________________________________________________________________________
+activation_403 (Activation)     (None, 112, 112, 64) 0           batch_normalization_403[0][0]    
+__________________________________________________________________________________________________
+dropout_321 (Dropout)           (None, 112, 112, 64) 0           activation_403[0][0]             
+__________________________________________________________________________________________________
+conv2d_436 (Conv2D)             (None, 112, 112, 64) 36928       dropout_321[0][0]                
+__________________________________________________________________________________________________
+batch_normalization_404 (BatchN (None, 112, 112, 64) 256         conv2d_436[0][0]                 
+__________________________________________________________________________________________________
+add_156 (Add)                   (None, 112, 112, 64) 0           activation_402[0][0]             
+                                                                 batch_normalization_404[0][0]    
+__________________________________________________________________________________________________
+activation_404 (Activation)     (None, 112, 112, 64) 0           add_156[0][0]                    
+__________________________________________________________________________________________________
+conv2d_437 (Conv2D)             (None, 56, 56, 128)  73856       activation_404[0][0]             
+__________________________________________________________________________________________________
+batch_normalization_405 (BatchN (None, 56, 56, 128)  512         conv2d_437[0][0]                 
+__________________________________________________________________________________________________
+activation_405 (Activation)     (None, 56, 56, 128)  0           batch_normalization_405[0][0]    
+__________________________________________________________________________________________________
+dropout_322 (Dropout)           (None, 56, 56, 128)  0           activation_405[0][0]             
+__________________________________________________________________________________________________
+conv2d_438 (Conv2D)             (None, 56, 56, 128)  147584      dropout_322[0][0]                
+__________________________________________________________________________________________________
+conv2d_439 (Conv2D)             (None, 56, 56, 128)  8320        activation_404[0][0]             
+__________________________________________________________________________________________________
+batch_normalization_406 (BatchN (None, 56, 56, 128)  512         conv2d_438[0][0]                 
+__________________________________________________________________________________________________
+add_157 (Add)                   (None, 56, 56, 128)  0           conv2d_439[0][0]                 
+                                                                 batch_normalization_406[0][0]    
+__________________________________________________________________________________________________
+activation_406 (Activation)     (None, 56, 56, 128)  0           add_157[0][0]                    
+__________________________________________________________________________________________________
+conv2d_440 (Conv2D)             (None, 56, 56, 128)  147584      activation_406[0][0]             
+__________________________________________________________________________________________________
+batch_normalization_407 (BatchN (None, 56, 56, 128)  512         conv2d_440[0][0]                 
+__________________________________________________________________________________________________
+activation_407 (Activation)     (None, 56, 56, 128)  0           batch_normalization_407[0][0]    
+__________________________________________________________________________________________________
+dropout_323 (Dropout)           (None, 56, 56, 128)  0           activation_407[0][0]             
+__________________________________________________________________________________________________
+conv2d_441 (Conv2D)             (None, 56, 56, 128)  147584      dropout_323[0][0]                
+__________________________________________________________________________________________________
+batch_normalization_408 (BatchN (None, 56, 56, 128)  512         conv2d_441[0][0]                 
+__________________________________________________________________________________________________
+add_158 (Add)                   (None, 56, 56, 128)  0           activation_406[0][0]             
+                                                                 batch_normalization_408[0][0]    
+__________________________________________________________________________________________________
+activation_408 (Activation)     (None, 56, 56, 128)  0           add_158[0][0]                    
+__________________________________________________________________________________________________
+conv2d_442 (Conv2D)             (None, 56, 56, 128)  147584      activation_408[0][0]             
+__________________________________________________________________________________________________
+batch_normalization_409 (BatchN (None, 56, 56, 128)  512         conv2d_442[0][0]                 
+__________________________________________________________________________________________________
+activation_409 (Activation)     (None, 56, 56, 128)  0           batch_normalization_409[0][0]    
+__________________________________________________________________________________________________
+dropout_324 (Dropout)           (None, 56, 56, 128)  0           activation_409[0][0]             
+__________________________________________________________________________________________________
+conv2d_443 (Conv2D)             (None, 56, 56, 128)  147584      dropout_324[0][0]                
+__________________________________________________________________________________________________
+batch_normalization_410 (BatchN (None, 56, 56, 128)  512         conv2d_443[0][0]                 
+__________________________________________________________________________________________________
+add_159 (Add)                   (None, 56, 56, 128)  0           activation_408[0][0]             
+                                                                 batch_normalization_410[0][0]    
+__________________________________________________________________________________________________
+activation_410 (Activation)     (None, 56, 56, 128)  0           add_159[0][0]                    
+__________________________________________________________________________________________________
+average_pooling2d_14 (AveragePo (None, 1, 1, 128)    0           activation_410[0][0]             
+__________________________________________________________________________________________________
+flatten_14 (Flatten)            (None, 128)          0           average_pooling2d_14[0][0]       
+__________________________________________________________________________________________________
+gender_output (Dense)           (None, 2)            258         flatten_14[0][0]                 
+__________________________________________________________________________________________________
+image_quality_output (Dense)    (None, 3)            387         flatten_14[0][0]                 
+__________________________________________________________________________________________________
+age_output (Dense)              (None, 5)            645         flatten_14[0][0]                 
+__________________________________________________________________________________________________
+weight_output (Dense)           (None, 4)            516         flatten_14[0][0]                 
+__________________________________________________________________________________________________
+bag_output (Dense)              (None, 3)            387         flatten_14[0][0]                 
+__________________________________________________________________________________________________
+footwear_output (Dense)         (None, 3)            387         flatten_14[0][0]                 
+__________________________________________________________________________________________________
+pose_output (Dense)             (None, 3)            387         flatten_14[0][0]                 
+__________________________________________________________________________________________________
+emotion_output (Dense)          (None, 4)            516         flatten_14[0][0]                 
+==================================================================================================
+Total params: 1,090,715
+Trainable params: 1,087,963
+Non-trainable params: 2,752
 
-Epochs: If an entire dataset is passed once through a neural network it is called as an epoch
-
-1x1 Convolution: A 1x1 matrix ( 1 number) is convoluted over an max pooled image in order to reduce the Z dimension.
-
-3x3 Convolution: A 3x3 matrix of kernel that is convoluted over an image is called as 3x3 convolution.
-
-Feature Maps: The output obtained after applying a kernel/filter over an input is feature maps. In general, the features extracted through one or more layers of convolution
-
-Activation Function: An activation function determines whether the input (summation of weighted sum of inputs and bias) from a node to be fired or not.
-
-Receptive Field: It is defined as the region in the input space that a particular CNN’s feature is looking at after one or more layers of convolution.
-
-Assignment 1 Score: [0.10314206821306968, 0.9924]
-
-
-## Assignment-2
-Logs for 20 Epocs
-Train on 60000 samples, validate on 10000 samples
-Epoch 1/20
-60000/60000 [==============================] - 27s 448us/step - loss: 0.5825 - acc: 0.8387 - val_loss: 0.1488 - val_acc: 0.9817
-Epoch 2/20
-60000/60000 [==============================] - 21s 353us/step - loss: 0.3386 - acc: 0.8884 - val_loss: 0.0774 - val_acc: 0.9897
-Epoch 3/20
-60000/60000 [==============================] - 21s 350us/step - loss: 0.2794 - acc: 0.9052 - val_loss: 0.0598 - val_acc: 0.9877
-Epoch 4/20
-60000/60000 [==============================] - 21s 342us/step - loss: 0.2432 - acc: 0.9169 - val_loss: 0.0511 - val_acc: 0.9893
-Epoch 5/20
-60000/60000 [==============================] - 21s 348us/step - loss: 0.2165 - acc: 0.9243 - val_loss: 0.0487 - val_acc: 0.9891
-Epoch 6/20
-60000/60000 [==============================] - 21s 347us/step - loss: 0.1956 - acc: 0.9314 - val_loss: 0.0367 - val_acc: 0.9911
-Epoch 7/20
-60000/60000 [==============================] - 20s 341us/step - loss: 0.1878 - acc: 0.9330 - val_loss: 0.0336 - val_acc: 0.9905
-Epoch 8/20
-60000/60000 [==============================] - 21s 342us/step - loss: 0.1755 - acc: 0.9362 - val_loss: 0.0339 - val_acc: 0.9917
-Epoch 9/20
-60000/60000 [==============================] - 20s 338us/step - loss: 0.1703 - acc: 0.9374 - val_loss: 0.0297 - val_acc: 0.9922
-Epoch 10/20
-60000/60000 [==============================] - 20s 339us/step - loss: 0.1609 - acc: 0.9411 - val_loss: 0.0329 - val_acc: 0.9914
-Epoch 11/20
-60000/60000 [==============================] - 20s 338us/step - loss: 0.1567 - acc: 0.9392 - val_loss: 0.0305 - val_acc: 0.9906
-Epoch 12/20
-60000/60000 [==============================] - 20s 335us/step - loss: 0.1544 - acc: 0.9421 - val_loss: 0.0279 - val_acc: 0.9922
-Epoch 13/20
-60000/60000 [==============================] - 20s 334us/step - loss: 0.1484 - acc: 0.9425 - val_loss: 0.0271 - val_acc: 0.9915
-Epoch 14/20
-60000/60000 [==============================] - 21s 343us/step - loss: 0.1439 - acc: 0.9439 - val_loss: 0.0270 - val_acc: 0.9919
-Epoch 15/20
-60000/60000 [==============================] - 20s 334us/step - loss: 0.1437 - acc: 0.9444 - val_loss: 0.0256 - val_acc: 0.9920
-Epoch 16/20
-60000/60000 [==============================] - 20s 334us/step - loss: 0.1394 - acc: 0.9456 - val_loss: 0.0301 - val_acc: 0.9915
-Epoch 17/20
-60000/60000 [==============================] - 20s 340us/step - loss: 0.1368 - acc: 0.9456 - val_loss: 0.0230 - val_acc: 0.9934
-Epoch 18/20
-60000/60000 [==============================] - 20s 335us/step - loss: 0.1350 - acc: 0.9463 - val_loss: 0.0224 - val_acc: 0.9933
-Epoch 19/20
-60000/60000 [==============================] - 20s 329us/step - loss: 0.1368 - acc: 0.9458 - val_loss: 0.0239 - val_acc: 0.9930
-Epoch 20/20
-60000/60000 [==============================] - 20s 331us/step - loss: 0.1307 - acc: 0.9462 - val_loss: 0.0244 - val_acc: 0.9934
-
-<keras.callbacks.History at 0x7f90e07991d0>
-
-
-
-## Startegy-1
-I have made two blocks of convolutins
-In each block there are two convolution layers. 2 3X3 conv layers and one 1x1 conv layer followed by max pooling.
-But I didn't incorporate learning rate scheduler.
-May be if I implemnt that I may get 99.4 test accuracy.
-
-
- ### Parmeters
- Total params: 15,810
-Trainable params: 15,598
-Non-trainable params: 212
-
-### Model Test Score
-[0.024351534522185102, 0.9934]
-
-
-
-## Startegy-2
-This time I scheduled learning rate and was able to aacheive 99.38 test accuracy. Validation accuracy reached 0.994 at least six times in the 20 epochs.
-
-Logs of 20 Epocs after scheduling learning rate
-Train on 60000 samples, validate on 10000 samples
-Epoch 1/20
-
+## Logs
 Epoch 00001: LearningRateScheduler setting learning rate to 0.003.
-60000/60000 [==============================] - 14s 226us/step - loss: 0.0966 - acc: 0.9555 - val_loss: 0.0261 - val_acc: 0.9922
-Epoch 2/20
+360/360 [==============================] - 187s 520ms/step - loss: 4.4417 - gender_output_loss: 0.6821 - image_quality_output_loss: 0.5748 - age_output_loss: 0.4609 - weight_output_loss: 0.4260 - bag_output_loss: 0.5537 - footwear_output_loss: 0.5815 - pose_output_loss: 0.5549 - emotion_output_loss: 0.3886 - gender_output_acc: 0.5703 - image_quality_output_acc: 0.6960 - age_output_acc: 0.7972 - weight_output_acc: 0.8138 - bag_output_acc: 0.7035 - footwear_output_acc: 0.6916 - pose_output_acc: 0.7410 - emotion_output_acc: 0.8559 - val_loss: 4.7916 - val_gender_output_loss: 0.6815 - val_image_quality_output_loss: 0.7283 - val_age_output_loss: 0.4647 - val_weight_output_loss: 0.4434 - val_bag_output_loss: 0.5635 - val_footwear_output_loss: 0.7792 - val_pose_output_loss: 0.5732 - val_emotion_output_loss: 0.4184 - val_gender_output_acc: 0.5658 - val_image_quality_output_acc: 0.5968 - val_age_output_acc: 0.8000 - val_weight_output_acc: 0.7613 - val_bag_output_acc: 0.7021 - val_footwear_output_acc: 0.5909 - val_pose_output_acc: 0.6677 - val_emotion_output_acc: 0.8288
+Epoch 2/50
 
 Epoch 00002: LearningRateScheduler setting learning rate to 0.0022744503.
-60000/60000 [==============================] - 6s 101us/step - loss: 0.0923 - acc: 0.9562 - val_loss: 0.0244 - val_acc: 0.9920
-Epoch 3/20
-
-Epoch 00003: LearningRateScheduler setting learning rate to 0.0018315018.
-60000/60000 [==============================] - 6s 100us/step - loss: 0.0869 - acc: 0.9582 - val_loss: 0.0196 - val_acc: 0.9935
-Epoch 4/20
-
-Epoch 00004: LearningRateScheduler setting learning rate to 0.0015329586.
-60000/60000 [==============================] - 6s 98us/step - loss: 0.0848 - acc: 0.9579 - val_loss: 0.0205 - val_acc: 0.9932
-Epoch 5/20
-
-Epoch 00005: LearningRateScheduler setting learning rate to 0.0013181019.
-60000/60000 [==============================] - 6s 98us/step - loss: 0.0857 - acc: 0.9579 - val_loss: 0.0184 - val_acc: 0.9940
-Epoch 6/20
-
-Epoch 00006: LearningRateScheduler setting learning rate to 0.0011560694.
-60000/60000 [==============================] - 6s 100us/step - loss: 0.0808 - acc: 0.9589 - val_loss: 0.0214 - val_acc: 0.9935
-Epoch 7/20
-
-Epoch 00007: LearningRateScheduler setting learning rate to 0.0010295127.
-60000/60000 [==============================] - 6s 101us/step - loss: 0.0816 - acc: 0.9583 - val_loss: 0.0182 - val_acc: 0.9943
-Epoch 8/20
-
-Epoch 00008: LearningRateScheduler setting learning rate to 0.0009279307.
-60000/60000 [==============================] - 6s 100us/step - loss: 0.0795 - acc: 0.9594 - val_loss: 0.0206 - val_acc: 0.9938
-Epoch 9/20
-
-Epoch 00009: LearningRateScheduler setting learning rate to 0.0008445946.
-60000/60000 [==============================] - 6s 98us/step - loss: 0.0801 - acc: 0.9598 - val_loss: 0.0189 - val_acc: 0.9937
-Epoch 10/20
-
-Epoch 00010: LearningRateScheduler setting learning rate to 0.0007749935.
-60000/60000 [==============================] - 6s 97us/step - loss: 0.0785 - acc: 0.9600 - val_loss: 0.0211 - val_acc: 0.9925
-Epoch 11/20
-
-Epoch 00011: LearningRateScheduler setting learning rate to 0.0007159905.
-60000/60000 [==============================] - 6s 98us/step - loss: 0.0801 - acc: 0.9592 - val_loss: 0.0190 - val_acc: 0.9940
-Epoch 12/20
-
-Epoch 00012: LearningRateScheduler setting learning rate to 0.000665336.
-60000/60000 [==============================] - 6s 98us/step - loss: 0.0783 - acc: 0.9589 - val_loss: 0.0197 - val_acc: 0.9935
-Epoch 13/20
-
-Epoch 00013: LearningRateScheduler setting learning rate to 0.0006213753.
-60000/60000 [==============================] - 6s 99us/step - loss: 0.0765 - acc: 0.9600 - val_loss: 0.0197 - val_acc: 0.9932
-Epoch 14/20
-
-Epoch 00014: LearningRateScheduler setting learning rate to 0.0005828638.
-60000/60000 [==============================] - 6s 98us/step - loss: 0.0759 - acc: 0.9610 - val_loss: 0.0215 - val_acc: 0.9931
-Epoch 15/20
-
-Epoch 00015: LearningRateScheduler setting learning rate to 0.0005488474.
-60000/60000 [==============================] - 6s 97us/step - loss: 0.0749 - acc: 0.9618 - val_loss: 0.0209 - val_acc: 0.9933
-Epoch 16/20
-
-Epoch 00016: LearningRateScheduler setting learning rate to 0.0005185825.
-60000/60000 [==============================] - 6s 100us/step - loss: 0.0762 - acc: 0.9604 - val_loss: 0.0182 - val_acc: 0.9940
-Epoch 17/20
-
-Epoch 00017: LearningRateScheduler setting learning rate to 0.000491481.
-60000/60000 [==============================] - 6s 99us/step - loss: 0.0752 - acc: 0.9598 - val_loss: 0.0184 - val_acc: 0.9941
-Epoch 18/20
-
-Epoch 00018: LearningRateScheduler setting learning rate to 0.0004670715.
-60000/60000 [==============================] - 6s 98us/step - loss: 0.0766 - acc: 0.9603 - val_loss: 0.0183 - val_acc: 0.9940
-Epoch 19/20
-
-Epoch 00019: LearningRateScheduler setting learning rate to 0.0004449718.
-60000/60000 [==============================] - 6s 98us/step - loss: 0.0742 - acc: 0.9613 - val_loss: 0.0177 - val_acc: 0.9942
-Epoch 20/20
-
-Epoch 00020: LearningRateScheduler setting learning rate to 0.000424869.
-60000/60000 [==============================] - 6s 98us/step - loss: 0.0753 - acc: 0.9601 - val_loss: 0.0181 - val_acc: 0.9938
-
-<keras.callbacks.History at 0x7f90e039e0b8>
-
-### Test accuracy
-score = model.evaluate(X_test, Y_test, verbose=0)
-print(score)
-[0.018072435555551783, 0.9938]
-
-
-## Startegy-3
-I know the above architecture slightly exceeded 15000 parameters. This time I have slightly changed the architecture by reducing the last point convolution layer channels to 10 instead of 16 (10 beacuse I have 10 classes.). This architecture along with the learning rate scheduler, 99.4 test accuracy was acheived within 15000 parameters and 20 epochs.
-
-### Epochs
-Train on 60000 samples, validate on 10000 samples
-Epoch 1/20
-
-Epoch 00001: LearningRateScheduler setting learning rate to 0.003.
-60000/60000 [==============================] - 12s 207us/step - loss: 0.4338 - acc: 0.8747 - val_loss: 0.0921 - val_acc: 0.9828
-Epoch 2/20
-
+359/360 [============================>.] - ETA: 0s - loss: 4.2536 - gender_output_loss: 0.6639 - image_quality_output_loss: 0.5570 - age_output_loss: 0.4564 - weight_output_loss: 0.4216 - bag_output_loss: 0.5469 - footwear_output_loss: 0.5653 - pose_output_loss: 0.5487 - emotion_output_loss: 0.3834 - gender_output_acc: 0.5981 - image_quality_output_acc: 0.6963 - age_output_acc: 0.7991 - weight_output_acc: 0.8168 - bag_output_acc: 0.7075 - footwear_output_acc: 0.7060 - pose_output_acc: 0.7424 - emotion_output_acc: 0.8575
 Epoch 00002: LearningRateScheduler setting learning rate to 0.0022744503.
-60000/60000 [==============================] - 9s 158us/step - loss: 0.2263 - acc: 0.9257 - val_loss: 0.0573 - val_acc: 0.9878
-Epoch 3/20
+Epoch 2/50
+360/360 [==============================] - 175s 485ms/step - loss: 4.2529 - gender_output_loss: 0.6640 - image_quality_output_loss: 0.5569 - age_output_loss: 0.4564 - weight_output_loss: 0.4215 - bag_output_loss: 0.5468 - footwear_output_loss: 0.5654 - pose_output_loss: 0.5485 - emotion_output_loss: 0.3832 - gender_output_acc: 0.5981 - image_quality_output_acc: 0.6964 - age_output_acc: 0.7991 - weight_output_acc: 0.8168 - bag_output_acc: 0.7078 - footwear_output_acc: 0.7060 - pose_output_acc: 0.7425 - emotion_output_acc: 0.8576 - val_loss: 4.2889 - val_gender_output_loss: 0.6783 - val_image_quality_output_loss: 0.5497 - val_age_output_loss: 0.4542 - val_weight_output_loss: 0.4204 - val_bag_output_loss: 0.5527 - val_footwear_output_loss: 0.5978 - val_pose_output_loss: 0.5457 - val_emotion_output_loss: 0.4016 - val_gender_output_acc: 0.5746 - val_image_quality_output_acc: 0.7095 - val_age_output_acc: 0.8000 - val_weight_output_acc: 0.8192 - val_bag_output_acc: 0.7056 - val_footwear_output_acc: 0.6932 - val_pose_output_acc: 0.7493 - val_emotion_output_acc: 0.8443
+Epoch 3/50
 
 Epoch 00003: LearningRateScheduler setting learning rate to 0.0018315018.
-60000/60000 [==============================] - 10s 159us/step - loss: 0.1841 - acc: 0.9384 - val_loss: 0.0466 - val_acc: 0.9900
-Epoch 4/20
+359/360 [============================>.] - ETA: 0s - loss: 4.1889 - gender_output_loss: 0.6551 - image_quality_output_loss: 0.5486 - age_output_loss: 0.4553 - weight_output_loss: 0.4200 - bag_output_loss: 0.5432 - footwear_output_loss: 0.5610 - pose_output_loss: 0.5459 - emotion_output_loss: 0.3814 - gender_output_acc: 0.6154 - image_quality_output_acc: 0.7025 - age_output_acc: 0.8001 - weight_output_acc: 0.8165 - bag_output_acc: 0.7105 - footwear_output_acc: 0.7116 - pose_output_acc: 0.7437 - emotion_output_acc: 0.8577Epoch 3/50
+360/360 [==============================] - 175s 486ms/step - loss: 4.1891 - gender_output_loss: 0.6554 - image_quality_output_loss: 0.5485 - age_output_loss: 0.4553 - weight_output_loss: 0.4201 - bag_output_loss: 0.5431 - footwear_output_loss: 0.5611 - pose_output_loss: 0.5457 - emotion_output_loss: 0.3815 - gender_output_acc: 0.6149 - image_quality_output_acc: 0.7025 - age_output_acc: 0.8001 - weight_output_acc: 0.8165 - bag_output_acc: 0.7105 - footwear_output_acc: 0.7114 - pose_output_acc: 0.7439 - emotion_output_acc: 0.8577 - val_loss: 4.2593 - val_gender_output_loss: 0.6533 - val_image_quality_output_loss: 0.5472 - val_age_output_loss: 0.4550 - val_weight_output_loss: 0.4176 - val_bag_output_loss: 0.5533 - val_footwear_output_loss: 0.6048 - val_pose_output_loss: 0.5384 - val_emotion_output_loss: 0.4165 - val_gender_output_acc: 0.6290 - val_image_quality_output_acc: 0.7087 - val_age_output_acc: 0.8001 - val_weight_output_acc: 0.8193 - val_bag_output_acc: 0.7092 - val_footwear_output_acc: 0.6900 - val_pose_output_acc: 0.7487 - val_emotion_output_acc: 0.8443
+Epoch 4/50
 
 Epoch 00004: LearningRateScheduler setting learning rate to 0.0015329586.
-60000/60000 [==============================] - 9s 156us/step - loss: 0.1590 - acc: 0.9431 - val_loss: 0.0397 - val_acc: 0.9911
-Epoch 5/20
+359/360 [============================>.] - ETA: 0s - loss: 4.1544 - gender_output_loss: 0.6418 - image_quality_output_loss: 0.5460 - age_output_loss: 0.4542 - weight_output_loss: 0.4196 - bag_output_loss: 0.5398 - footwear_output_loss: 0.5569 - pose_output_loss: 0.5448 - emotion_output_loss: 0.3809 - gender_output_acc: 0.6227 - image_quality_output_acc: 0.7031 - age_output_acc: 0.7992 - weight_output_acc: 0.8168 - bag_output_acc: 0.7145 - footwear_output_acc: 0.7146 - pose_output_acc: 0.7440 - emotion_output_acc: 0.8576
+Epoch 00004: LearningRateScheduler setting learning rate to 0.0015329586.
+360/360 [==============================] - 175s 486ms/step - loss: 4.1544 - gender_output_loss: 0.6416 - image_quality_output_loss: 0.5460 - age_output_loss: 0.4543 - weight_output_loss: 0.4197 - bag_output_loss: 0.5400 - footwear_output_loss: 0.5569 - pose_output_loss: 0.5447 - emotion_output_loss: 0.3808 - gender_output_acc: 0.6229 - image_quality_output_acc: 0.7030 - age_output_acc: 0.7992 - weight_output_acc: 0.8167 - bag_output_acc: 0.7144 - footwear_output_acc: 0.7147 - pose_output_acc: 0.7441 - emotion_output_acc: 0.8576 - val_loss: 4.5803 - val_gender_output_loss: 0.8919 - val_image_quality_output_loss: 0.5571 - val_age_output_loss: 0.4625 - val_weight_output_loss: 0.4249 - val_bag_output_loss: 0.6114 - val_footwear_output_loss: 0.5988 - val_pose_output_loss: 0.5520 - val_emotion_output_loss: 0.4123 - val_gender_output_acc: 0.4315 - val_image_quality_output_acc: 0.6952 - val_age_output_acc: 0.7998 - val_weight_output_acc: 0.8191 - val_bag_output_acc: 0.6058 - val_footwear_output_acc: 0.7009 - val_pose_output_acc: 0.7497 - val_emotion_output_acc: 0.8443
+Epoch 5/50
 
 Epoch 00005: LearningRateScheduler setting learning rate to 0.0013181019.
-60000/60000 [==============================] - 9s 156us/step - loss: 0.1449 - acc: 0.9471 - val_loss: 0.0439 - val_acc: 0.9878
-Epoch 6/20
+359/360 [============================>.] - ETA: 0s - loss: 4.1202 - gender_output_loss: 0.6246 - image_quality_output_loss: 0.5434 - age_output_loss: 0.4536 - weight_output_loss: 0.4194 - bag_output_loss: 0.5380 - footwear_output_loss: 0.5502 - pose_output_loss: 0.5429 - emotion_output_loss: 0.3810 - gender_output_acc: 0.6450 - image_quality_output_acc: 0.7059 - age_output_acc: 0.7998 - weight_output_acc: 0.8171 - bag_output_acc: 0.7146 - footwear_output_acc: 0.7220 - pose_output_acc: 0.7444 - emotion_output_acc: 0.8572
+360/360 [==============================] - 175s 486ms/step - loss: 4.1199 - gender_output_loss: 0.6246 - image_quality_output_loss: 0.5434 - age_output_loss: 0.4536 - weight_output_loss: 0.4191 - bag_output_loss: 0.5383 - footwear_output_loss: 0.5499 - pose_output_loss: 0.5431 - emotion_output_loss: 0.3807 - gender_output_acc: 0.6451 - image_quality_output_acc: 0.7058 - age_output_acc: 0.7998 - weight_output_acc: 0.8173 - bag_output_acc: 0.7144 - footwear_output_acc: 0.7223 - pose_output_acc: 0.7442 - emotion_output_acc: 0.8574 - val_loss: 4.2616 - val_gender_output_loss: 0.6908 - val_image_quality_output_loss: 0.5456 - val_age_output_loss: 0.4544 - val_weight_output_loss: 0.4183 - val_bag_output_loss: 0.5809 - val_footwear_output_loss: 0.5598 - val_pose_output_loss: 0.5440 - val_emotion_output_loss: 0.4014 - val_gender_output_acc: 0.5542 - val_image_quality_output_acc: 0.7087 - val_age_output_acc: 0.7999 - val_weight_output_acc: 0.8193 - val_bag_output_acc: 0.6425 - val_footwear_output_acc: 0.7120 - val_pose_output_acc: 0.7493 - val_emotion_output_acc: 0.8443
+Epoch 6/50
 
 Epoch 00006: LearningRateScheduler setting learning rate to 0.0011560694.
-60000/60000 [==============================] - 9s 156us/step - loss: 0.1370 - acc: 0.9472 - val_loss: 0.0371 - val_acc: 0.9908
-Epoch 7/20
+359/360 [============================>.] - ETA: 0s - loss: 4.0852 - gender_output_loss: 0.6039 - image_quality_output_loss: 0.5408 - age_output_loss: 0.4526 - weight_output_loss: 0.4184 - bag_output_loss: 0.5349 - footwear_output_loss: 0.5460 - pose_output_loss: 0.5428 - emotion_output_loss: 0.3801 - gender_output_acc: 0.6686 - image_quality_output_acc: 0.7076 - age_output_acc: 0.7997 - weight_output_acc: 0.8172 - bag_output_acc: 0.7178 - footwear_output_acc: 0.7246 - pose_output_acc: 0.7443 - emotion_output_acc: 0.8575
+360/360 [==============================] - 175s 487ms/step - loss: 4.0845 - gender_output_loss: 0.6035 - image_quality_output_loss: 0.5406 - age_output_loss: 0.4525 - weight_output_loss: 0.4185 - bag_output_loss: 0.5349 - footwear_output_loss: 0.5460 - pose_output_loss: 0.5428 - emotion_output_loss: 0.3799 - gender_output_acc: 0.6691 - image_quality_output_acc: 0.7078 - age_output_acc: 0.7998 - weight_output_acc: 0.8171 - bag_output_acc: 0.7176 - footwear_output_acc: 0.7245 - pose_output_acc: 0.7443 - emotion_output_acc: 0.8576 - val_loss: 4.1425 - val_gender_output_loss: 0.6020 - val_image_quality_output_loss: 0.5402 - val_age_output_loss: 0.4544 - val_weight_output_loss: 0.4220 - val_bag_output_loss: 0.5381 - val_footwear_output_loss: 0.5707 - val_pose_output_loss: 0.5506 - val_emotion_output_loss: 0.3990 - val_gender_output_acc: 0.6754 - val_image_quality_output_acc: 0.7080 - val_age_output_acc: 0.7995 - val_weight_output_acc: 0.8160 - val_bag_output_acc: 0.7134 - val_footwear_output_acc: 0.6925 - val_pose_output_acc: 0.7382 - val_emotion_output_acc: 0.8444
+Epoch 7/50
 
 Epoch 00007: LearningRateScheduler setting learning rate to 0.0010295127.
-60000/60000 [==============================] - 9s 155us/step - loss: 0.1299 - acc: 0.9490 - val_loss: 0.0290 - val_acc: 0.9919
-Epoch 8/20
+359/360 [============================>.] - ETA: 0s - loss: 4.0501 - gender_output_loss: 0.5846 - image_quality_output_loss: 0.5386 - age_output_loss: 0.4523 - weight_output_loss: 0.4185 - bag_output_loss: 0.5307 - footwear_output_loss: 0.5409 - pose_output_loss: 0.5394 - emotion_output_loss: 0.3789 - gender_output_acc: 0.6876 - image_quality_output_acc: 0.7096 - age_output_acc: 0.7998 - weight_output_acc: 0.8165 - bag_output_acc: 0.7250 - footwear_output_acc: 0.7306 - pose_output_acc: 0.7449 - emotion_output_acc: 0.8573
+360/360 [==============================] - 175s 487ms/step - loss: 4.0501 - gender_output_loss: 0.5847 - image_quality_output_loss: 0.5387 - age_output_loss: 0.4523 - weight_output_loss: 0.4182 - bag_output_loss: 0.5305 - footwear_output_loss: 0.5410 - pose_output_loss: 0.5395 - emotion_output_loss: 0.3788 - gender_output_acc: 0.6877 - image_quality_output_acc: 0.7096 - age_output_acc: 0.7997 - weight_output_acc: 0.8167 - bag_output_acc: 0.7251 - footwear_output_acc: 0.7305 - pose_output_acc: 0.7448 - emotion_output_acc: 0.8574 - val_loss: 4.3743 - val_gender_output_loss: 0.7823 - val_image_quality_output_loss: 0.5989 - val_age_output_loss: 0.4614 - val_weight_output_loss: 0.4320 - val_bag_output_loss: 0.5567 - val_footwear_output_loss: 0.5326 - val_pose_output_loss: 0.5339 - val_emotion_output_loss: 0.4085 - val_gender_output_acc: 0.5567 - val_image_quality_output_acc: 0.6952 - val_age_output_acc: 0.7989 - val_weight_output_acc: 0.8191 - val_bag_output_acc: 0.7004 - val_footwear_output_acc: 0.7366 - val_pose_output_acc: 0.7495 - val_emotion_output_acc: 0.8445
+Epoch 8/50
 
 Epoch 00008: LearningRateScheduler setting learning rate to 0.0009279307.
-60000/60000 [==============================] - 9s 155us/step - loss: 0.1252 - acc: 0.9497 - val_loss: 0.0318 - val_acc: 0.9906
-Epoch 9/20
+359/360 [============================>.] - ETA: 0s - loss: 4.0142 - gender_output_loss: 0.5668 - image_quality_output_loss: 0.5390 - age_output_loss: 0.4524 - weight_output_loss: 0.4177 - bag_output_loss: 0.5266 - footwear_output_loss: 0.5286 - pose_output_loss: 0.5356 - emotion_output_loss: 0.3791 - gender_output_acc: 0.7077 - image_quality_output_acc: 0.7088 - age_output_acc: 0.7996 - weight_output_acc: 0.8166 - bag_output_acc: 0.7261 - footwear_output_acc: 0.7382 - pose_output_acc: 0.7457 - emotion_output_acc: 0.8575
+Epoch 00008: LearningRateScheduler setting learning rate to 0.0009279307.
+360/360 [==============================] - 175s 485ms/step - loss: 4.0137 - gender_output_loss: 0.5665 - image_quality_output_loss: 0.5388 - age_output_loss: 0.4524 - weight_output_loss: 0.4177 - bag_output_loss: 0.5265 - footwear_output_loss: 0.5285 - pose_output_loss: 0.5357 - emotion_output_loss: 0.3791 - gender_output_acc: 0.7080 - image_quality_output_acc: 0.7088 - age_output_acc: 0.7996 - weight_output_acc: 0.8165 - bag_output_acc: 0.7263 - footwear_output_acc: 0.7381 - pose_output_acc: 0.7456 - emotion_output_acc: 0.8575 - val_loss: 5.2540 - val_gender_output_loss: 1.3920 - val_image_quality_output_loss: 0.5364 - val_age_output_loss: 0.4736 - val_weight_output_loss: 0.4316 - val_bag_output_loss: 0.6964 - val_footwear_output_loss: 0.6955 - val_pose_output_loss: 0.5363 - val_emotion_output_loss: 0.4217 - val_gender_output_acc: 0.5849 - val_image_quality_output_acc: 0.7139 - val_age_output_acc: 0.7964 - val_weight_output_acc: 0.7986 - val_bag_output_acc: 0.7023 - val_footwear_output_acc: 0.6598 - val_pose_output_acc: 0.7505 - val_emotion_output_acc: 0.8438
+Epoch 9/50
 
 Epoch 00009: LearningRateScheduler setting learning rate to 0.0008445946.
-60000/60000 [==============================] - 9s 156us/step - loss: 0.1228 - acc: 0.9498 - val_loss: 0.0294 - val_acc: 0.9920
-Epoch 10/20
+360/360 [==============================] - 175s 486ms/step - loss: 3.9710 - gender_output_loss: 0.5472 - image_quality_output_loss: 0.5371 - age_output_loss: 0.4520 - weight_output_loss: 0.4181 - bag_output_loss: 0.5231 - footwear_output_loss: 0.5122 - pose_output_loss: 0.5307 - emotion_output_loss: 0.3787 - gender_output_acc: 0.7231 - image_quality_output_acc: 0.7095 - age_output_acc: 0.7999 - weight_output_acc: 0.8166 - bag_output_acc: 0.7312 - footwear_output_acc: 0.7524 - pose_output_acc: 0.7481 - emotion_output_acc: 0.8575 - val_loss: 4.2794 - val_gender_output_loss: 0.7423 - val_image_quality_output_loss: 0.5896 - val_age_output_loss: 0.4570 - val_weight_output_loss: 0.4191 - val_bag_output_loss: 0.5371 - val_footwear_output_loss: 0.5398 - val_pose_output_loss: 0.5211 - val_emotion_output_loss: 0.3997 - val_gender_output_acc: 0.5842 - val_image_quality_output_acc: 0.6868 - val_age_output_acc: 0.7997 - val_weight_output_acc: 0.8191 - val_bag_output_acc: 0.7256 - val_footwear_output_acc: 0.7201 - val_pose_output_acc: 0.7562 - val_emotion_output_acc: 0.8444
+Epoch 10/50
 
 Epoch 00010: LearningRateScheduler setting learning rate to 0.0007749935.
-60000/60000 [==============================] - 9s 155us/step - loss: 0.1184 - acc: 0.9512 - val_loss: 0.0314 - val_acc: 0.9908
-Epoch 11/20
+359/360 [============================>.] - ETA: 0s - loss: 3.9231 - gender_output_loss: 0.5250 - image_quality_output_loss: 0.5364 - age_output_loss: 0.4512 - weight_output_loss: 0.4165 - bag_output_loss: 0.5223 - footwear_output_loss: 0.5005 - pose_output_loss: 0.5199 - emotion_output_loss: 0.3771 - gender_output_acc: 0.7352 - image_quality_output_acc: 0.7107 - age_output_acc: 0.7997 - weight_output_acc: 0.8171 - bag_output_acc: 0.7317 - footwear_output_acc: 0.7574 - pose_output_acc: 0.7535 - emotion_output_acc: 0.8575
+Epoch 00010: LearningRateScheduler setting learning rate to 0.0007749935.
+Epoch 10/50
+360/360 [==============================] - 175s 487ms/step - loss: 3.9230 - gender_output_loss: 0.5248 - image_quality_output_loss: 0.5362 - age_output_loss: 0.4512 - weight_output_loss: 0.4165 - bag_output_loss: 0.5224 - footwear_output_loss: 0.5004 - pose_output_loss: 0.5199 - emotion_output_loss: 0.3772 - gender_output_acc: 0.7354 - image_quality_output_acc: 0.7107 - age_output_acc: 0.7997 - weight_output_acc: 0.8171 - bag_output_acc: 0.7316 - footwear_output_acc: 0.7574 - pose_output_acc: 0.7535 - emotion_output_acc: 0.8574 - val_loss: 4.8155 - val_gender_output_loss: 0.5625 - val_image_quality_output_loss: 0.5389 - val_age_output_loss: 0.4571 - val_weight_output_loss: 0.4191 - val_bag_output_loss: 0.5401 - val_footwear_output_loss: 1.3051 - val_pose_output_loss: 0.5178 - val_emotion_output_loss: 0.3982 - val_gender_output_acc: 0.7238 - val_image_quality_output_acc: 0.7025 - val_age_output_acc: 0.8001 - val_weight_output_acc: 0.8187 - val_bag_output_acc: 0.7235 - val_footwear_output_acc: 0.5904 - val_pose_output_acc: 0.7566 - val_emotion_output_acc: 0.8435
+Epoch 11/50
 
 Epoch 00011: LearningRateScheduler setting learning rate to 0.0007159905.
-60000/60000 [==============================] - 9s 154us/step - loss: 0.1109 - acc: 0.9536 - val_loss: 0.0243 - val_acc: 0.9933
-Epoch 12/20
+359/360 [============================>.] - ETA: 0s - loss: 3.8722 - gender_output_loss: 0.5031 - image_quality_output_loss: 0.5350 - age_output_loss: 0.4503 - weight_output_loss: 0.4159 - bag_output_loss: 0.5163 - footwear_output_loss: 0.4945 - pose_output_loss: 0.5040 - emotion_output_loss: 0.3760 - gender_output_acc: 0.7557 - image_quality_output_acc: 0.7124 - age_output_acc: 0.7998 - weight_output_acc: 0.8172 - bag_output_acc: 0.7389 - footwear_output_acc: 0.7625 - pose_output_acc: 0.7615 - emotion_output_acc: 0.8572Epoch 11/50
+360/360 [==============================] - 176s 488ms/step - loss: 3.8723 - gender_output_loss: 0.5031 - image_quality_output_loss: 0.5351 - age_output_loss: 0.4504 - weight_output_loss: 0.4158 - bag_output_loss: 0.5163 - footwear_output_loss: 0.4946 - pose_output_loss: 0.5040 - emotion_output_loss: 0.3760 - gender_output_acc: 0.7557 - image_quality_output_acc: 0.7122 - age_output_acc: 0.7998 - weight_output_acc: 0.8173 - bag_output_acc: 0.7389 - footwear_output_acc: 0.7625 - pose_output_acc: 0.7615 - emotion_output_acc: 0.8572 - val_loss: 4.0727 - val_gender_output_loss: 0.5090 - val_image_quality_output_loss: 0.5358 - val_age_output_loss: 0.4503 - val_weight_output_loss: 0.4158 - val_bag_output_loss: 0.5422 - val_footwear_output_loss: 0.6218 - val_pose_output_loss: 0.5236 - val_emotion_output_loss: 0.3967 - val_gender_output_acc: 0.7586 - val_image_quality_output_acc: 0.7157 - val_age_output_acc: 0.7998 - val_weight_output_acc: 0.8183 - val_bag_output_acc: 0.7102 - val_footwear_output_acc: 0.6519 - val_pose_output_acc: 0.7547 - val_emotion_output_acc: 0.8443
+Epoch 12/50
 
 Epoch 00012: LearningRateScheduler setting learning rate to 0.000665336.
-60000/60000 [==============================] - 9s 157us/step - loss: 0.1124 - acc: 0.9524 - val_loss: 0.0243 - val_acc: 0.9927
-Epoch 13/20
+360/360 [==============================] - 175s 486ms/step - loss: 3.8170 - gender_output_loss: 0.4814 - image_quality_output_loss: 0.5341 - age_output_loss: 0.4491 - weight_output_loss: 0.4154 - bag_output_loss: 0.5112 - footwear_output_loss: 0.4871 - pose_output_loss: 0.4849 - emotion_output_loss: 0.3746 - gender_output_acc: 0.7682 - image_quality_output_acc: 0.7136 - age_output_acc: 0.7993 - weight_output_acc: 0.8171 - bag_output_acc: 0.7454 - footwear_output_acc: 0.7665 - pose_output_acc: 0.7737 - emotion_output_acc: 0.8573 - val_loss: 4.2713 - val_gender_output_loss: 0.6815 - val_image_quality_output_loss: 0.5349 - val_age_output_loss: 0.4625 - val_weight_output_loss: 0.4202 - val_bag_output_loss: 0.5951 - val_footwear_output_loss: 0.6072 - val_pose_output_loss: 0.4847 - val_emotion_output_loss: 0.4046 - val_gender_output_acc: 0.6701 - val_image_quality_output_acc: 0.7100 - val_age_output_acc: 0.7974 - val_weight_output_acc: 0.8154 - val_bag_output_acc: 0.7061 - val_footwear_output_acc: 0.6818 - val_pose_output_acc: 0.7770 - val_emotion_output_acc: 0.8440
+Epoch 13/50
 
 Epoch 00013: LearningRateScheduler setting learning rate to 0.0006213753.
-60000/60000 [==============================] - 10s 162us/step - loss: 0.1119 - acc: 0.9524 - val_loss: 0.0234 - val_acc: 0.9930
-Epoch 14/20
+359/360 [============================>.] - ETA: 0s - loss: 3.7636 - gender_output_loss: 0.4569 - image_quality_output_loss: 0.5333 - age_output_loss: 0.4487 - weight_output_loss: 0.4150 - bag_output_loss: 0.5110 - footwear_output_loss: 0.4822 - pose_output_loss: 0.4612 - emotion_output_loss: 0.3737 - gender_output_acc: 0.7853 - image_quality_output_acc: 0.7142 - age_output_acc: 0.7998 - weight_output_acc: 0.8170 - bag_output_acc: 0.7433 - footwear_output_acc: 0.7687 - pose_output_acc: 0.7847 - emotion_output_acc: 0.8571
+360/360 [==============================] - 175s 487ms/step - loss: 3.7640 - gender_output_loss: 0.4568 - image_quality_output_loss: 0.5335 - age_output_loss: 0.4487 - weight_output_loss: 0.4151 - bag_output_loss: 0.5112 - footwear_output_loss: 0.4822 - pose_output_loss: 0.4612 - emotion_output_loss: 0.3737 - gender_output_acc: 0.7852 - image_quality_output_acc: 0.7139 - age_output_acc: 0.7998 - weight_output_acc: 0.8171 - bag_output_acc: 0.7431 - footwear_output_acc: 0.7685 - pose_output_acc: 0.7847 - emotion_output_acc: 0.8571 - val_loss: 3.8589 - val_gender_output_loss: 0.4777 - val_image_quality_output_loss: 0.5317 - val_age_output_loss: 0.4498 - val_weight_output_loss: 0.4149 - val_bag_output_loss: 0.5298 - val_footwear_output_loss: 0.4725 - val_pose_output_loss: 0.5031 - val_emotion_output_loss: 0.3967 - val_gender_output_acc: 0.7734 - val_image_quality_output_acc: 0.7156 - val_age_output_acc: 0.8010 - val_weight_output_acc: 0.8191 - val_bag_output_acc: 0.7401 - val_footwear_output_acc: 0.7764 - val_pose_output_acc: 0.7606 - val_emotion_output_acc: 0.8448
+Epoch 14/50
 
 Epoch 00014: LearningRateScheduler setting learning rate to 0.0005828638.
-60000/60000 [==============================] - 9s 155us/step - loss: 0.1060 - acc: 0.9542 - val_loss: 0.0232 - val_acc: 0.9937
-Epoch 15/20
+360/360 [==============================] - 175s 487ms/step - loss: 3.7088 - gender_output_loss: 0.4380 - image_quality_output_loss: 0.5309 - age_output_loss: 0.4478 - weight_output_loss: 0.4143 - bag_output_loss: 0.5080 - footwear_output_loss: 0.4751 - pose_output_loss: 0.4394 - emotion_output_loss: 0.3717 - gender_output_acc: 0.7958 - image_quality_output_acc: 0.7140 - age_output_acc: 0.7999 - weight_output_acc: 0.8179 - bag_output_acc: 0.7463 - footwear_output_acc: 0.7740 - pose_output_acc: 0.7942 - emotion_output_acc: 0.8567 - val_loss: 4.5117 - val_gender_output_loss: 0.9785 - val_image_quality_output_loss: 0.5442 - val_age_output_loss: 0.4618 - val_weight_output_loss: 0.4248 - val_bag_output_loss: 0.6246 - val_footwear_output_loss: 0.5259 - val_pose_output_loss: 0.4551 - val_emotion_output_loss: 0.4121 - val_gender_output_acc: 0.6510 - val_image_quality_output_acc: 0.7144 - val_age_output_acc: 0.7988 - val_weight_output_acc: 0.8112 - val_bag_output_acc: 0.7041 - val_footwear_output_acc: 0.7540 - val_pose_output_acc: 0.7824 - val_emotion_output_acc: 0.8436
+Epoch 15/50
 
 Epoch 00015: LearningRateScheduler setting learning rate to 0.0005488474.
-60000/60000 [==============================] - 9s 156us/step - loss: 0.1072 - acc: 0.9537 - val_loss: 0.0236 - val_acc: 0.9935
-Epoch 16/20
+359/360 [============================>.] - ETA: 0s - loss: 3.6618 - gender_output_loss: 0.4156 - image_quality_output_loss: 0.5298 - age_output_loss: 0.4474 - weight_output_loss: 0.4132 - bag_output_loss: 0.5049 - footwear_output_loss: 0.4717 - pose_output_loss: 0.4234 - emotion_output_loss: 0.3704 - gender_output_acc: 0.8120 - image_quality_output_acc: 0.7156 - age_output_acc: 0.7998 - weight_output_acc: 0.8176 - bag_output_acc: 0.7501 - footwear_output_acc: 0.7783 - pose_output_acc: 0.8020 - emotion_output_acc: 0.8566Epoch 15/50
+360/360 [==============================] - 176s 488ms/step - loss: 3.6622 - gender_output_loss: 0.4157 - image_quality_output_loss: 0.5300 - age_output_loss: 0.4473 - weight_output_loss: 0.4134 - bag_output_loss: 0.5048 - footwear_output_loss: 0.4716 - pose_output_loss: 0.4234 - emotion_output_loss: 0.3706 - gender_output_acc: 0.8122 - image_quality_output_acc: 0.7155 - age_output_acc: 0.7998 - weight_output_acc: 0.8176 - bag_output_acc: 0.7500 - footwear_output_acc: 0.7784 - pose_output_acc: 0.8020 - emotion_output_acc: 0.8565 - val_loss: 3.8567 - val_gender_output_loss: 0.4538 - val_image_quality_output_loss: 0.5491 - val_age_output_loss: 0.4506 - val_weight_output_loss: 0.4201 - val_bag_output_loss: 0.5172 - val_footwear_output_loss: 0.4918 - val_pose_output_loss: 0.4718 - val_emotion_output_loss: 0.4162 - val_gender_output_acc: 0.7913 - val_image_quality_output_acc: 0.7156 - val_age_output_acc: 0.8002 - val_weight_output_acc: 0.8191 - val_bag_output_acc: 0.7429 - val_footwear_output_acc: 0.7703 - val_pose_output_acc: 0.7886 - val_emotion_output_acc: 0.8440
+Epoch 16/50
 
 Epoch 00016: LearningRateScheduler setting learning rate to 0.0005185825.
-60000/60000 [==============================] - 9s 155us/step - loss: 0.1056 - acc: 0.9539 - val_loss: 0.0213 - val_acc: 0.9941
-Epoch 17/20
+359/360 [============================>.] - ETA: 0s - loss: 3.6215 - gender_output_loss: 0.3996 - image_quality_output_loss: 0.5276 - age_output_loss: 0.4460 - weight_output_loss: 0.4130 - bag_output_loss: 0.5019 - footwear_output_loss: 0.4690 - pose_output_loss: 0.4087 - emotion_output_loss: 0.3689 - gender_output_acc: 0.8225 - image_quality_output_acc: 0.7181 - age_output_acc: 0.7994 - weight_output_acc: 0.8182 - bag_output_acc: 0.7548 - footwear_output_acc: 0.7787 - pose_output_acc: 0.8105 - emotion_output_acc: 0.8572
+360/360 [==============================] - 175s 486ms/step - loss: 3.6219 - gender_output_loss: 0.3996 - image_quality_output_loss: 0.5275 - age_output_loss: 0.4461 - weight_output_loss: 0.4131 - bag_output_loss: 0.5019 - footwear_output_loss: 0.4693 - pose_output_loss: 0.4086 - emotion_output_loss: 0.3690 - gender_output_acc: 0.8221 - image_quality_output_acc: 0.7182 - age_output_acc: 0.7995 - weight_output_acc: 0.8181 - bag_output_acc: 0.7547 - footwear_output_acc: 0.7786 - pose_output_acc: 0.8106 - emotion_output_acc: 0.8572 - val_loss: 4.4859 - val_gender_output_loss: 0.9600 - val_image_quality_output_loss: 0.6097 - val_age_output_loss: 0.4808 - val_weight_output_loss: 0.4327 - val_bag_output_loss: 0.5628 - val_footwear_output_loss: 0.4900 - val_pose_output_loss: 0.4586 - val_emotion_output_loss: 0.4038 - val_gender_output_acc: 0.5927 - val_image_quality_output_acc: 0.6677 - val_age_output_acc: 0.7722 - val_weight_output_acc: 0.8193 - val_bag_output_acc: 0.7161 - val_footwear_output_acc: 0.7581 - val_pose_output_acc: 0.7848 - val_emotion_output_acc: 0.8391
+Epoch 17/50
 
 Epoch 00017: LearningRateScheduler setting learning rate to 0.000491481.
-60000/60000 [==============================] - 9s 152us/step - loss: 0.1073 - acc: 0.9530 - val_loss: 0.0227 - val_acc: 0.9934
-Epoch 18/20
+360/360 [==============================] - 175s 486ms/step - loss: 3.6219 - gender_output_loss: 0.3996 - image_quality_output_loss: 0.5275 - age_output_loss: 0.4461 - weight_output_loss: 0.4131 - bag_output_loss: 0.5019 - footwear_output_loss: 0.4693 - pose_output_loss: 0.4086 - emotion_output_loss: 0.3690 - gender_output_acc: 0.8221 - image_quality_output_acc: 0.7182 - age_output_acc: 0.7995 - weight_output_acc: 0.8181 - bag_output_acc: 0.7547 - footwear_output_acc: 0.7786 - pose_output_acc: 0.8106 - emotion_output_acc: 0.8572 - val_loss: 4.4859 - val_gender_output_loss: 0.9600 - val_image_quality_output_loss: 0.6097 - val_age_output_loss: 0.4808 - val_weight_output_loss: 0.4327 - val_bag_output_loss: 0.5628 - val_footwear_output_loss: 0.4900 - val_pose_output_loss: 0.4586 - val_emotion_output_loss: 0.4038 - val_gender_output_acc: 0.5927 - val_image_quality_output_acc: 0.6677 - val_age_output_acc: 0.7722 - val_weight_output_acc: 0.8193 - val_bag_output_acc: 0.7161 - val_footwear_output_acc: 0.7581 - val_pose_output_acc: 0.7848 - val_emotion_output_acc: 0.8391
+
+Epoch 00017: LearningRateScheduler setting learning rate to 0.000491481.
+360/360 [==============================] - 175s 486ms/step - loss: 3.5823 - gender_output_loss: 0.3781 - image_quality_output_loss: 0.5272 - age_output_loss: 0.4459 - weight_output_loss: 0.4127 - bag_output_loss: 0.4994 - footwear_output_loss: 0.4667 - pose_output_loss: 0.3951 - emotion_output_loss: 0.3684 - gender_output_acc: 0.8296 - image_quality_output_acc: 0.7170 - age_output_acc: 0.7994 - weight_output_acc: 0.8178 - bag_output_acc: 0.7564 - footwear_output_acc: 0.7803 - pose_output_acc: 0.8186 - emotion_output_acc: 0.8567 - val_loss: 3.8159 - val_gender_output_loss: 0.4787 - val_image_quality_output_loss: 0.5462 - val_age_output_loss: 0.4492 - val_weight_output_loss: 0.4193 - val_bag_output_loss: 0.5341 - val_footwear_output_loss: 0.4784 - val_pose_output_loss: 0.4187 - val_emotion_output_loss: 0.4015 - val_gender_output_acc: 0.7833 - val_image_quality_output_acc: 0.7088 - val_age_output_acc: 0.7972 - val_weight_output_acc: 0.8193 - val_bag_output_acc: 0.7352 - val_footwear_output_acc: 0.7717 - val_pose_output_acc: 0.8061 - val_emotion_output_acc: 0.8441
+Epoch 18/50
 
 Epoch 00018: LearningRateScheduler setting learning rate to 0.0004670715.
-60000/60000 [==============================] - 9s 154us/step - loss: 0.1020 - acc: 0.9549 - val_loss: 0.0212 - val_acc: 0.9939
-Epoch 19/20
+360/360 [==============================] - 175s 487ms/step - loss: 3.5362 - gender_output_loss: 0.3590 - image_quality_output_loss: 0.5251 - age_output_loss: 0.4445 - weight_output_loss: 0.4118 - bag_output_loss: 0.4963 - footwear_output_loss: 0.4620 - pose_output_loss: 0.3788 - emotion_output_loss: 0.3680 - gender_output_acc: 0.8393 - image_quality_output_acc: 0.7206 - age_output_acc: 0.7999 - weight_output_acc: 0.8183 - bag_output_acc: 0.7604 - footwear_output_acc: 0.7823 - pose_output_acc: 0.8266 - emotion_output_acc: 0.8564 - val_loss: 3.8292 - val_gender_output_loss: 0.4283 - val_image_quality_output_loss: 0.5313 - val_age_output_loss: 0.4476 - val_weight_output_loss: 0.4169 - val_bag_output_loss: 0.5449 - val_footwear_output_loss: 0.4586 - val_pose_output_loss: 0.5081 - val_emotion_output_loss: 0.4020 - val_gender_output_acc: 0.8107 - val_image_quality_output_acc: 0.7182 - val_age_output_acc: 0.7996 - val_weight_output_acc: 0.8140 - val_bag_output_acc: 0.7248 - val_footwear_output_acc: 0.7823 - val_pose_output_acc: 0.7500 - val_emotion_output_acc: 0.8440
+Epoch 19/50
 
 Epoch 00019: LearningRateScheduler setting learning rate to 0.0004449718.
-60000/60000 [==============================] - 9s 154us/step - loss: 0.1009 - acc: 0.9559 - val_loss: 0.0205 - val_acc: 0.9942
-Epoch 20/20
+359/360 [============================>.] - ETA: 0s - loss: 3.5054 - gender_output_loss: 0.3444 - image_quality_output_loss: 0.5260 - age_output_loss: 0.4443 - weight_output_loss: 0.4116 - bag_output_loss: 0.4934 - footwear_output_loss: 0.4616 - pose_output_loss: 0.3649 - emotion_output_loss: 0.3668 - gender_output_acc: 0.8508 - image_quality_output_acc: 0.7199 - age_output_acc: 0.7997 - weight_output_acc: 0.8182 - bag_output_acc: 0.7603 - footwear_output_acc: 0.7830 - pose_output_acc: 0.8343 - emotion_output_acc: 0.8574
+
+360/360 [==============================] - 176s 488ms/step - loss: 3.5056 - gender_output_loss: 0.3442 - image_quality_output_loss: 0.5262 - age_output_loss: 0.4443 - weight_output_loss: 0.4117 - bag_output_loss: 0.4937 - footwear_output_loss: 0.4615 - pose_output_loss: 0.3647 - emotion_output_loss: 0.3670 - gender_output_acc: 0.8508 - image_quality_output_acc: 0.7197 - age_output_acc: 0.7997 - weight_output_acc: 0.8181 - bag_output_acc: 0.7602 - footwear_output_acc: 0.7829 - pose_output_acc: 0.8344 - emotion_output_acc: 0.8573 - val_loss: 3.8885 - val_gender_output_loss: 0.4161 - val_image_quality_output_loss: 0.7315 - val_age_output_loss: 0.4473 - val_weight_output_loss: 0.4140 - val_bag_output_loss: 0.5290 - val_footwear_output_loss: 0.4625 - val_pose_output_loss: 0.4057 - val_emotion_output_loss: 0.3892 - val_gender_output_acc: 0.8022 - val_image_quality_output_acc: 0.5931 - val_age_output_acc: 0.7993 - val_weight_output_acc: 0.8194 - val_bag_output_acc: 0.7277 - val_footwear_output_acc: 0.7804 - val_pose_output_acc: 0.8081 - val_emotion_output_acc: 0.8444
+Epoch 20/50
 
 Epoch 00020: LearningRateScheduler setting learning rate to 0.000424869.
-60000/60000 [==============================] - 9s 154us/step - loss: 0.1008 - acc: 0.9558 - val_loss: 0.0216 - val_acc: 0.9941
+360/360 [==============================] - 176s 488ms/step - loss: 3.5056 - gender_output_loss: 0.3442 - image_quality_output_loss: 0.5262 - age_output_loss: 0.4443 - weight_output_loss: 0.4117 - bag_output_loss: 0.4937 - footwear_output_loss: 0.4615 - pose_output_loss: 0.3647 - emotion_output_loss: 0.3670 - gender_output_acc: 0.8508 - image_quality_output_acc: 0.7197 - age_output_acc: 0.7997 - weight_output_acc: 0.8181 - bag_output_acc: 0.7602 - footwear_output_acc: 0.7829 - pose_output_acc: 0.8344 - emotion_output_acc: 0.8573 - val_loss: 3.8885 - val_gender_output_loss: 0.4161 - val_image_quality_output_loss: 0.7315 - val_age_output_loss: 0.4473 - val_weight_output_loss: 0.4140 - val_bag_output_loss: 0.5290 - val_footwear_output_loss: 0.4625 - val_pose_output_loss: 0.4057 - val_emotion_output_loss: 0.3892 - val_gender_output_acc: 0.8022 - val_image_quality_output_acc: 0.5931 - val_age_output_acc: 0.7993 - val_weight_output_acc: 0.8194 - val_bag_output_acc: 0.7277 - val_footwear_output_acc: 0.7804 - val_pose_output_acc: 0.8081 - val_emotion_output_acc: 0.8444
+360/360 [==============================] - 175s 486ms/step - loss: 3.4529 - gender_output_loss: 0.3179 - image_quality_output_loss: 0.5242 - age_output_loss: 0.4435 - weight_output_loss: 0.4102 - bag_output_loss: 0.4898 - footwear_output_loss: 0.4590 - pose_output_loss: 0.3487 - emotion_output_loss: 0.3656 - gender_output_acc: 0.8658 - image_quality_output_acc: 0.7194 - age_output_acc: 0.7998 - weight_output_acc: 0.8194 - bag_output_acc: 0.7647 - footwear_output_acc: 0.7879 - pose_output_acc: 0.8443 - emotion_output_acc: 0.8571 - val_loss: 3.7758 - val_gender_output_loss: 0.4663 - val_image_quality_output_loss: 0.5271 - val_age_output_loss: 0.4464 - val_weight_output_loss: 0.4124 - val_bag_output_loss: 0.5286 - val_footwear_output_loss: 0.4745 - val_pose_output_loss: 0.4302 - val_emotion_output_loss: 0.3954 - val_gender_output_acc: 0.7916 - val_image_quality_output_acc: 0.7151 - val_age_output_acc: 0.8009 - val_weight_output_acc: 0.8184 - val_bag_output_acc: 0.7308 - val_footwear_output_acc: 0.7829 - val_pose_output_acc: 0.8096 - val_emotion_output_acc: 0.8441
+Epoch 21/50
 
-### Architecture
-Layer (type)                 Output Shape              Param #   
-=================================================================
-conv2d_20 (Conv2D)           (None, 26, 26, 16)        160       
-_________________________________________________________________
-batch_normalization_14 (Batc (None, 26, 26, 16)        64        
-_________________________________________________________________
-dropout_14 (Dropout)         (None, 26, 26, 16)        0         
-_________________________________________________________________
-conv2d_21 (Conv2D)           (None, 24, 24, 32)        4640      
-_________________________________________________________________
-batch_normalization_15 (Batc (None, 24, 24, 32)        128       
-_________________________________________________________________
-dropout_15 (Dropout)         (None, 24, 24, 32)        0         
-_________________________________________________________________
-conv2d_22 (Conv2D)           (None, 24, 24, 16)        528       
-_________________________________________________________________
-max_pooling2d_7 (MaxPooling2 (None, 12, 12, 16)        0         
-_________________________________________________________________
-conv2d_23 (Conv2D)           (None, 10, 10, 16)        2320      
-_________________________________________________________________
-batch_normalization_16 (Batc (None, 10, 10, 16)        64        
-_________________________________________________________________
-dropout_16 (Dropout)         (None, 10, 10, 16)        0         
-_________________________________________________________________
-conv2d_24 (Conv2D)           (None, 8, 8, 32)          4640      
-_________________________________________________________________
-batch_normalization_17 (Batc (None, 8, 8, 32)          128       
-_________________________________________________________________
-dropout_17 (Dropout)         (None, 8, 8, 32)          0         
-_________________________________________________________________
-max_pooling2d_8 (MaxPooling2 (None, 4, 4, 32)          0         
-_________________________________________________________________
-conv2d_25 (Conv2D)           (None, 4, 4, 10)          330       
-_________________________________________________________________
-conv2d_26 (Conv2D)           (None, 1, 1, 10)          1610      
-_________________________________________________________________
-batch_normalization_18 (Batc (None, 1, 1, 10)          40        
-_________________________________________________________________
-dropout_18 (Dropout)         (None, 1, 1, 10)          0         
-_________________________________________________________________
-flatten_4 (Flatten)          (None, 10)                0         
-_________________________________________________________________
-activation_4 (Activation)    (None, 10)                0         
-=================================================================
-Total params: 14,652
-Trainable params: 14,440
-Non-trainable params: 212
+Epoch 00021: LearningRateScheduler setting learning rate to 0.0004065041.
+359/360 [============================>.] - ETA: 0s - loss: 3.4234 - gender_output_loss: 0.3079 - image_quality_output_loss: 0.5226 - age_output_loss: 0.4430 - weight_output_loss: 0.4101 - bag_output_loss: 0.4878 - footwear_output_loss: 0.4548 - pose_output_loss: 0.3362 - emotion_output_loss: 0.3654 - gender_output_acc: 0.8682 - image_quality_output_acc: 0.7226 - age_output_acc: 0.7997 - weight_output_acc: 0.8187 - bag_output_acc: 0.7663 - footwear_output_acc: 0.7887 - pose_output_acc: 0.8536 - emotion_output_acc: 0.8570Epoch 21/50
+360/360 [==============================] - 175s 487ms/step - loss: 3.4242 - gender_output_loss: 0.3086 - image_quality_output_loss: 0.5227 - age_output_loss: 0.4429 - weight_output_loss: 0.4101 - bag_output_loss: 0.4879 - footwear_output_loss: 0.4549 - pose_output_loss: 0.3361 - emotion_output_loss: 0.3654 - gender_output_acc: 0.8678 - image_quality_output_acc: 0.7226 - age_output_acc: 0.7997 - weight_output_acc: 0.8187 - bag_output_acc: 0.7663 - footwear_output_acc: 0.7887 - pose_output_acc: 0.8538 - emotion_output_acc: 0.8570 - val_loss: 3.8907 - val_gender_output_loss: 0.5722 - val_image_quality_output_loss: 0.5458 - val_age_output_loss: 0.4607 - val_weight_output_loss: 0.4122 - val_bag_output_loss: 0.5231 - val_footwear_output_loss: 0.4833 - val_pose_output_loss: 0.4074 - val_emotion_output_loss: 0.3892 - val_gender_output_acc: 0.7689 - val_image_quality_output_acc: 0.7082 - val_age_output_acc: 0.7993 - val_weight_output_acc: 0.8202 - val_bag_output_acc: 0.7357 - val_footwear_output_acc: 0.7740 - val_pose_output_acc: 0.8217 - val_emotion_output_acc: 0.8427
+Epoch 22/50
 
-### Test Accuracy
-[0.021593860066635533, 0.9941]
+Epoch 00022: LearningRateScheduler setting learning rate to 0.000389661.
+360/360 [==============================] - 175s 487ms/step - loss: 3.3766 - gender_output_loss: 0.2867 - image_quality_output_loss: 0.5208 - age_output_loss: 0.4421 - weight_output_loss: 0.4093 - bag_output_loss: 0.4845 - footwear_output_loss: 0.4515 - pose_output_loss: 0.3200 - emotion_output_loss: 0.3641 - gender_output_acc: 0.8831 - image_quality_output_acc: 0.7235 - age_output_acc: 0.8002 - weight_output_acc: 0.8188 - bag_output_acc: 0.7681 - footwear_output_acc: 0.7897 - pose_output_acc: 0.8600 - emotion_output_acc: 0.8568 - val_loss: 3.7955 - val_gender_output_loss: 0.4076 - val_image_quality_output_loss: 0.5300 - val_age_output_loss: 0.4491 - val_weight_output_loss: 0.4116 - val_bag_output_loss: 0.5156 - val_footwear_output_loss: 0.4623 - val_pose_output_loss: 0.5053 - val_emotion_output_loss: 0.4158 - val_gender_output_acc: 0.8173 - val_image_quality_output_acc: 0.7209 - val_age_output_acc: 0.7980 - val_weight_output_acc: 0.8197 - val_bag_output_acc: 0.7471 - val_footwear_output_acc: 0.7834 - val_pose_output_acc: 0.7621 - val_emotion_output_acc: 0.8443
+Epoch 23/50
 
-Notebook 1: https://github.com/bharathbolla/EIP4/blob/master/Assignment_2.ipynb
-Notebook 2: https://github.com/bharathbolla/EIP4/blob/master/Assignment_2_with%20LR_Schedule.ipynb
-Notebook 3: https://github.com/bharathbolla/EIP4/blob/master/EIP4_Assignment2_Ver3.0.ipynb
+Epoch 00023: LearningRateScheduler setting learning rate to 0.0003741581.
+360/360 [==============================] - 176s 488ms/step - loss: 3.3491 - gender_output_loss: 0.2765 - image_quality_output_loss: 0.5192 - age_output_loss: 0.4413 - weight_output_loss: 0.4087 - bag_output_loss: 0.4794 - footwear_output_loss: 0.4505 - pose_output_loss: 0.3112 - emotion_output_loss: 0.3631 - gender_output_acc: 0.8866 - image_quality_output_acc: 0.7248 - age_output_acc: 0.7999 - weight_output_acc: 0.8197 - bag_output_acc: 0.7719 - footwear_output_acc: 0.7901 - pose_output_acc: 0.8650 - emotion_output_acc: 0.8576 - val_loss: 3.6342 - val_gender_output_loss: 0.3923 - val_image_quality_output_loss: 0.5350 - val_age_output_loss: 0.4498 - val_weight_output_loss: 0.4220 - val_bag_output_loss: 0.5162 - val_footwear_output_loss: 0.4651 - val_pose_output_loss: 0.3622 - val_emotion_output_loss: 0.3915 - val_gender_output_acc: 0.8306 - val_image_quality_output_acc: 0.6989 - val_age_output_acc: 0.7934 - val_weight_output_acc: 0.8193 - val_bag_output_acc: 0.7520 - val_footwear_output_acc: 0.7754 - val_pose_output_acc: 0.8446 - val_emotion_output_acc: 0.8441
+Epoch 24/50
+
+Epoch 00024: LearningRateScheduler setting learning rate to 0.0003598417.
+359/360 [============================>.] - ETA: 0s - loss: 3.3015 - gender_output_loss: 0.2503 - image_quality_output_loss: 0.5189 - age_output_loss: 0.4408 - weight_output_loss: 0.4075 - bag_output_loss: 0.4763 - footwear_output_loss: 0.4483 - pose_output_loss: 0.2963 - emotion_output_loss: 0.3624 - gender_output_acc: 0.8997 - image_quality_output_acc: 0.7265 - age_output_acc: 0.8005 - weight_output_acc: 0.8199 - bag_output_acc: 0.7750 - footwear_output_acc: 0.7906 - pose_output_acc: 0.8755 - emotion_output_acc: 0.8574Epoch 24/50
+360/360 [==============================] - 176s 488ms/step - loss: 3.3018 - gender_output_loss: 0.2502 - image_quality_output_loss: 0.5188 - age_output_loss: 0.4408 - weight_output_loss: 0.4076 - bag_output_loss: 0.4762 - footwear_output_loss: 0.4485 - pose_output_loss: 0.2964 - emotion_output_loss: 0.3626 - gender_output_acc: 0.8997 - image_quality_output_acc: 0.7264 - age_output_acc: 0.8005 - weight_output_acc: 0.8199 - bag_output_acc: 0.7751 - footwear_output_acc: 0.7907 - pose_output_acc: 0.8755 - emotion_output_acc: 0.8572 - val_loss: 3.5552 - val_gender_output_loss: 0.3896 - val_image_quality_output_loss: 0.5374 - val_age_output_loss: 0.4438 - val_weight_output_loss: 0.4085 - val_bag_output_loss: 0.5020 - val_footwear_output_loss: 0.4656 - val_pose_output_loss: 0.3202 - val_emotion_output_loss: 0.3867 - val_gender_output_acc: 0.8332 - val_image_quality_output_acc: 0.7107 - val_age_output_acc: 0.8005 - val_weight_output_acc: 0.8204 - val_bag_output_acc: 0.7562 - val_footwear_output_acc: 0.7710 - val_pose_output_acc: 0.8624 - val_emotion_output_acc: 0.8444
+Epoch 25/50
+
+Epoch 00025: LearningRateScheduler setting learning rate to 0.0003465804.
+360/360 [==============================] - 175s 486ms/step - loss: 3.2720 - gender_output_loss: 0.2333 - image_quality_output_loss: 0.5179 - age_output_loss: 0.4404 - weight_output_loss: 0.4072 - bag_output_loss: 0.4744 - footwear_output_loss: 0.4444 - pose_output_loss: 0.2903 - emotion_output_loss: 0.3619 - gender_output_acc: 0.9058 - image_quality_output_acc: 0.7269 - age_output_acc: 0.7997 - weight_output_acc: 0.8204 - bag_output_acc: 0.7744 - footwear_output_acc: 0.7930 - pose_output_acc: 0.8774 - emotion_output_acc: 0.8578 - val_loss: 3.9243 - val_gender_output_loss: 0.6853 - val_image_quality_output_loss: 0.5291 - val_age_output_loss: 0.4604 - val_weight_output_loss: 0.4140 - val_bag_output_loss: 0.5184 - val_footwear_output_loss: 0.4703 - val_pose_output_loss: 0.3553 - val_emotion_output_loss: 0.3887 - val_gender_output_acc: 0.7684 - val_image_quality_output_acc: 0.7142 - val_age_output_acc: 0.7933 - val_weight_output_acc: 0.8203 - val_bag_output_acc: 0.7544 - val_footwear_output_acc: 0.7712 - val_pose_output_acc: 0.8483 - val_emotion_output_acc: 0.8407
+Epoch 26/50
+
+Epoch 00026: LearningRateScheduler setting learning rate to 0.0003342618.
+360/360 [==============================] - 175s 486ms/step - loss: 3.2720 - gender_output_loss: 0.2333 - image_quality_output_loss: 0.5179 - age_output_loss: 0.4404 - weight_output_loss: 0.4072 - bag_output_loss: 0.4744 - footwear_output_loss: 0.4444 - pose_output_loss: 0.2903 - emotion_output_loss: 0.3619 - gender_output_acc: 0.9058 - image_quality_output_acc: 0.7269 - age_output_acc: 0.7997 - weight_output_acc: 0.8204 - bag_output_acc: 0.7744 - footwear_output_acc: 0.7930 - pose_output_acc: 0.8774 - emotion_output_acc: 0.8578 - val_loss: 3.9243 - val_gender_output_loss: 0.6853 - val_image_quality_output_loss: 0.5291 - val_age_output_loss: 0.4604 - val_weight_output_loss: 0.4140 - val_bag_output_loss: 0.5184 - val_footwear_output_loss: 0.4703 - val_pose_output_loss: 0.3553 - val_emotion_output_loss: 0.3887 - val_gender_output_acc: 0.7684 - val_image_quality_output_acc: 0.7142 - val_age_output_acc: 0.7933 - val_weight_output_acc: 0.8203 - val_bag_output_acc: 0.7544 - val_footwear_output_acc: 0.7712 - val_pose_output_acc: 0.8483 - val_emotion_output_acc: 0.8407
+360/360 [==============================] - 175s 487ms/step - loss: 3.2504 - gender_output_loss: 0.2295 - image_quality_output_loss: 0.5178 - age_output_loss: 0.4397 - weight_output_loss: 0.4063 - bag_output_loss: 0.4720 - footwear_output_loss: 0.4429 - pose_output_loss: 0.2771 - emotion_output_loss: 0.3615 - gender_output_acc: 0.9099 - image_quality_output_acc: 0.7277 - age_output_acc: 0.8008 - weight_output_acc: 0.8214 - bag_output_acc: 0.7764 - footwear_output_acc: 0.7942 - pose_output_acc: 0.8856 - emotion_output_acc: 0.8572 - val_loss: 3.6300 - val_gender_output_loss: 0.3697 - val_image_quality_output_loss: 0.5301 - val_age_output_loss: 0.4420 - val_weight_output_loss: 0.4110 - val_bag_output_loss: 0.5035 - val_footwear_output_loss: 0.5437 - val_pose_output_loss: 0.3343 - val_emotion_output_loss: 0.3912 - val_gender_output_acc: 0.8435 - val_image_quality_output_acc: 0.7169 - val_age_output_acc: 0.7983 - val_weight_output_acc: 0.8204 - val_bag_output_acc: 0.7545 - val_footwear_output_acc: 0.7544 - val_pose_output_acc: 0.8533 - val_emotion_output_acc: 0.8441
+Epoch 27/50
+
+Epoch 00027: LearningRateScheduler setting learning rate to 0.0003227889.
+360/360 [==============================] - 175s 487ms/step - loss: 3.1998 - gender_output_loss: 0.2014 - image_quality_output_loss: 0.5154 - age_output_loss: 0.4388 - weight_output_loss: 0.4060 - bag_output_loss: 0.4659 - footwear_output_loss: 0.4410 - pose_output_loss: 0.2662 - emotion_output_loss: 0.3602 - gender_output_acc: 0.9254 - image_quality_output_acc: 0.7292 - age_output_acc: 0.8003 - weight_output_acc: 0.8210 - bag_output_acc: 0.7823 - footwear_output_acc: 0.7952 - pose_output_acc: 0.8914 - emotion_output_acc: 0.8570 - val_loss: 4.2183 - val_gender_output_loss: 0.9775 - val_image_quality_output_loss: 0.5227 - val_age_output_loss: 0.4469 - val_weight_output_loss: 0.4111 - val_bag_output_loss: 0.5377 - val_footwear_output_loss: 0.4684 - val_pose_output_loss: 0.3459 - val_emotion_output_loss: 0.4027 - val_gender_output_acc: 0.6976 - val_image_quality_output_acc: 0.7245 - val_age_output_acc: 0.7991 - val_weight_output_acc: 0.8199 - val_bag_output_acc: 0.7433 - val_footwear_output_acc: 0.7705 - val_pose_output_acc: 0.8589 - val_emotion_output_acc: 0.8288
+Epoch 28/50
+
+Epoch 00028: LearningRateScheduler setting learning rate to 0.0003120774.
+360/360 [==============================] - 175s 486ms/step - loss: 3.1716 - gender_output_loss: 0.1905 - image_quality_output_loss: 0.5142 - age_output_loss: 0.4385 - weight_output_loss: 0.4049 - bag_output_loss: 0.4636 - footwear_output_loss: 0.4381 - pose_output_loss: 0.2569 - emotion_output_loss: 0.3589 - gender_output_acc: 0.9266 - image_quality_output_acc: 0.7301 - age_output_acc: 0.8001 - weight_output_acc: 0.8213 - bag_output_acc: 0.7840 - footwear_output_acc: 0.7957 - pose_output_acc: 0.8951 - emotion_output_acc: 0.8575 - val_loss: 3.8576 - val_gender_output_loss: 0.5447 - val_image_quality_output_loss: 0.5387 - val_age_output_loss: 0.4424 - val_weight_output_loss: 0.4077 - val_bag_output_loss: 0.5475 - val_footwear_output_loss: 0.4815 - val_pose_output_loss: 0.3922 - val_emotion_output_loss: 0.3964 - val_gender_output_acc: 0.7802 - val_image_quality_output_acc: 0.6910 - val_age_output_acc: 0.7988 - val_weight_output_acc: 0.8204 - val_bag_output_acc: 0.7340 - val_footwear_output_acc: 0.7686 - val_pose_output_acc: 0.8204 - val_emotion_output_acc: 0.8367
+Epoch 29/50
+
+Epoch 00029: LearningRateScheduler setting learning rate to 0.000302054.
+360/360 [==============================] - 176s 488ms/step - loss: 3.1332 - gender_output_loss: 0.1739 - image_quality_output_loss: 0.5129 - age_output_loss: 0.4373 - weight_output_loss: 0.4046 - bag_output_loss: 0.4595 - footwear_output_loss: 0.4350 - pose_output_loss: 0.2446 - emotion_output_loss: 0.3581 - gender_output_acc: 0.9345 - image_quality_output_acc: 0.7314 - age_output_acc: 0.8007 - weight_output_acc: 0.8220 - bag_output_acc: 0.7884 - footwear_output_acc: 0.7985 - pose_output_acc: 0.9017 - emotion_output_acc: 0.8581 - val_loss: 4.4427 - val_gender_output_loss: 1.1659 - val_image_quality_output_loss: 0.5251 - val_age_output_loss: 0.4784 - val_weight_output_loss: 0.4331 - val_bag_output_loss: 0.5160 - val_footwear_output_loss: 0.4871 - val_pose_output_loss: 0.3367 - val_emotion_output_loss: 0.3926 - val_gender_output_acc: 0.6729 - val_image_quality_output_acc: 0.7238 - val_age_output_acc: 0.7949 - val_weight_output_acc: 0.7922 - val_bag_output_acc: 0.7502 - val_footwear_output_acc: 0.7727 - val_pose_output_acc: 0.8518 - val_emotion_output_acc: 0.8415
+Epoch 30/50
+
+Epoch 00030: LearningRateScheduler setting learning rate to 0.0002926544.
+359/360 [============================>.] - ETA: 0s - loss: 3.1066 - gender_output_loss: 0.1630 - image_quality_output_loss: 0.5111 - age_output_loss: 0.4371 - weight_output_loss: 0.4033 - bag_output_loss: 0.4570 - footwear_output_loss: 0.4309 - pose_output_loss: 0.2392 - emotion_output_loss: 0.3567 - gender_output_acc: 0.9425 - image_quality_output_acc: 0.7310 - age_output_acc: 0.8004 - weight_output_acc: 0.8222 - bag_output_acc: 0.7884 - footwear_output_acc: 0.8011 - pose_output_acc: 0.9043 - emotion_output_acc: 0.8588
+Epoch 00030: LearningRateScheduler setting learning rate to 0.0002926544.
+360/360 [==============================] - 176s 489ms/step - loss: 3.1069 - gender_output_loss: 0.1632 - image_quality_output_loss: 0.5112 - age_output_loss: 0.4371 - weight_output_loss: 0.4034 - bag_output_loss: 0.4571 - footwear_output_loss: 0.4307 - pose_output_loss: 0.2391 - emotion_output_loss: 0.3568 - gender_output_acc: 0.9425 - image_quality_output_acc: 0.7310 - age_output_acc: 0.8004 - weight_output_acc: 0.8221 - bag_output_acc: 0.7883 - footwear_output_acc: 0.8012 - pose_output_acc: 0.9044 - emotion_output_acc: 0.8587 - val_loss: 4.0524 - val_gender_output_loss: 0.4221 - val_image_quality_output_loss: 0.5301 - val_age_output_loss: 0.4610 - val_weight_output_loss: 0.4234 - val_bag_output_loss: 0.5344 - val_footwear_output_loss: 0.4516 - val_pose_output_loss: 0.6944 - val_emotion_output_loss: 0.4265 - val_gender_output_acc: 0.8352 - val_image_quality_output_acc: 0.7201 - val_age_output_acc: 0.7961 - val_weight_output_acc: 0.8197 - val_bag_output_acc: 0.7399 - val_footwear_output_acc: 0.7871 - val_pose_output_acc: 0.7149 - val_emotion_output_acc: 0.8440
+Epoch 31/50
+
+Epoch 00031: LearningRateScheduler setting learning rate to 0.0002838221.
+360/360 [==============================] - 177s 491ms/step - loss: 3.0700 - gender_output_loss: 0.1520 - image_quality_output_loss: 0.5092 - age_output_loss: 0.4361 - weight_output_loss: 0.4017 - bag_output_loss: 0.4481 - footwear_output_loss: 0.4273 - pose_output_loss: 0.2296 - emotion_output_loss: 0.3566 - gender_output_acc: 0.9457 - image_quality_output_acc: 0.7339 - age_output_acc: 0.8005 - weight_output_acc: 0.8229 - bag_output_acc: 0.7957 - footwear_output_acc: 0.8032 - pose_output_acc: 0.9093 - emotion_output_acc: 0.8577 - val_loss: 4.0266 - val_gender_output_loss: 0.6743 - val_image_quality_output_loss: 0.5401 - val_age_output_loss: 0.4423 - val_weight_output_loss: 0.4065 - val_bag_output_loss: 0.5127 - val_footwear_output_loss: 0.5927 - val_pose_output_loss: 0.3596 - val_emotion_output_loss: 0.3886 - val_gender_output_acc: 0.7364 - val_image_quality_output_acc: 0.7199 - val_age_output_acc: 0.7991 - val_weight_output_acc: 0.8207 - val_bag_output_acc: 0.7535 - val_footwear_output_acc: 0.7095 - val_pose_output_acc: 0.8382 - val_emotion_output_acc: 0.8453
+Epoch 32/50
+
+Epoch 00032: LearningRateScheduler setting learning rate to 0.0002755074.
+360/360 [==============================] - 176s 490ms/step - loss: 3.0285 - gender_output_loss: 0.1277 - image_quality_output_loss: 0.5078 - age_output_loss: 0.4351 - weight_output_loss: 0.4015 - bag_output_loss: 0.4456 - footwear_output_loss: 0.4239 - pose_output_loss: 0.2209 - emotion_output_loss: 0.3557 - gender_output_acc: 0.9576 - image_quality_output_acc: 0.7350 - age_output_acc: 0.8009 - weight_output_acc: 0.8224 - bag_output_acc: 0.7975 - footwear_output_acc: 0.8060 - pose_output_acc: 0.9121 - emotion_output_acc: 0.8588 - val_loss: 3.7141 - val_gender_output_loss: 0.4060 - val_image_quality_output_loss: 0.5228 - val_age_output_loss: 0.4478 - val_weight_output_loss: 0.4094 - val_bag_output_loss: 0.6327 - val_footwear_output_loss: 0.4526 - val_pose_output_loss: 0.3430 - val_emotion_output_loss: 0.3892 - val_gender_output_acc: 0.8475 - val_image_quality_output_acc: 0.7263 - val_age_output_acc: 0.7981 - val_weight_output_acc: 0.8203 - val_bag_output_acc: 0.7140 - val_footwear_output_acc: 0.7856 - val_pose_output_acc: 0.8644 - val_emotion_output_acc: 0.8395
+Epoch 33/50
+
+Epoch 00033: LearningRateScheduler setting learning rate to 0.000267666.
+360/360 [==============================] - 176s 490ms/step - loss: 3.0039 - gender_output_loss: 0.1261 - image_quality_output_loss: 0.5061 - age_output_loss: 0.4347 - weight_output_loss: 0.4000 - bag_output_loss: 0.4423 - footwear_output_loss: 0.4201 - pose_output_loss: 0.2086 - emotion_output_loss: 0.3547 - gender_output_acc: 0.9563 - image_quality_output_acc: 0.7380 - age_output_acc: 0.8013 - weight_output_acc: 0.8235 - bag_output_acc: 0.7996 - footwear_output_acc: 0.8060 - pose_output_acc: 0.9193 - emotion_output_acc: 0.8581 - val_loss: 3.7920 - val_gender_output_loss: 0.5368 - val_image_quality_output_loss: 0.5252 - val_age_output_loss: 0.4535 - val_weight_output_loss: 0.4214 - val_bag_output_loss: 0.5332 - val_footwear_output_loss: 0.4979 - val_pose_output_loss: 0.3224 - val_emotion_output_loss: 0.3898 - val_gender_output_acc: 0.7795 - val_image_quality_output_acc: 0.7218 - val_age_output_acc: 0.7947 - val_weight_output_acc: 0.8197 - val_bag_output_acc: 0.7532 - val_footwear_output_acc: 0.7487 - val_pose_output_acc: 0.8642 - val_emotion_output_acc: 0.8440
+Epoch 34/50
+
+Epoch 00034: LearningRateScheduler setting learning rate to 0.0002602585.
+360/360 [==============================] - 176s 490ms/step - loss: 2.9723 - gender_output_loss: 0.1147 - image_quality_output_loss: 0.5046 - age_output_loss: 0.4338 - weight_output_loss: 0.3987 - bag_output_loss: 0.4346 - footwear_output_loss: 0.4153 - pose_output_loss: 0.2047 - emotion_output_loss: 0.3536 - gender_output_acc: 0.9637 - image_quality_output_acc: 0.7387 - age_output_acc: 0.8010 - weight_output_acc: 0.8242 - bag_output_acc: 0.8031 - footwear_output_acc: 0.8085 - pose_output_acc: 0.9205 - emotion_output_acc: 0.8593 - val_loss: 3.8282 - val_gender_output_loss: 0.4569 - val_image_quality_output_loss: 0.5259 - val_age_output_loss: 0.4418 - val_weight_output_loss: 0.4083 - val_bag_output_loss: 0.6239 - val_footwear_output_loss: 0.4613 - val_pose_output_loss: 0.4047 - val_emotion_output_loss: 0.3926 - val_gender_output_acc: 0.8420 - val_image_quality_output_acc: 0.7194 - val_age_output_acc: 0.7985 - val_weight_output_acc: 0.8188 - val_bag_output_acc: 0.7199 - val_footwear_output_acc: 0.7816 - val_pose_output_acc: 0.8439 - val_emotion_output_acc: 0.8320
+Epoch 35/50
+
+Epoch 00035: LearningRateScheduler setting learning rate to 0.00025325.
+360/360 [==============================] - 176s 490ms/step - loss: 2.9469 - gender_output_loss: 0.1084 - image_quality_output_loss: 0.5038 - age_output_loss: 0.4337 - weight_output_loss: 0.3980 - bag_output_loss: 0.4295 - footwear_output_loss: 0.4133 - pose_output_loss: 0.1947 - emotion_output_loss: 0.3521 - gender_output_acc: 0.9638 - image_quality_output_acc: 0.7370 - age_output_acc: 0.8013 - weight_output_acc: 0.8252 - bag_output_acc: 0.8083 - footwear_output_acc: 0.8117 - pose_output_acc: 0.9248 - emotion_output_acc: 0.8598 - val_loss: 3.6608 - val_gender_output_loss: 0.3687 - val_image_quality_output_loss: 0.5290 - val_age_output_loss: 0.4407 - val_weight_output_loss: 0.4090 - val_bag_output_loss: 0.5057 - val_footwear_output_loss: 0.5431 - val_pose_output_loss: 0.3594 - val_emotion_output_loss: 0.3913 - val_gender_output_acc: 0.8589 - val_image_quality_output_acc: 0.7238 - val_age_output_acc: 0.7977 - val_weight_output_acc: 0.8197 - val_bag_output_acc: 0.7609 - val_footwear_output_acc: 0.7587 - val_pose_output_acc: 0.8466 - val_emotion_output_acc: 0.8448
+Epoch 36/50
+
+Epoch 00036: LearningRateScheduler setting learning rate to 0.0002466091.
+360/360 [==============================] - 176s 488ms/step - loss: 2.8997 - gender_output_loss: 0.0945 - image_quality_output_loss: 0.5023 - age_output_loss: 0.4322 - weight_output_loss: 0.3966 - bag_output_loss: 0.4213 - footwear_output_loss: 0.4071 - pose_output_loss: 0.1812 - emotion_output_loss: 0.3505 - gender_output_acc: 0.9718 - image_quality_output_acc: 0.7406 - age_output_acc: 0.8012 - weight_output_acc: 0.8250 - bag_output_acc: 0.8135 - footwear_output_acc: 0.8136 - pose_output_acc: 0.9322 - emotion_output_acc: 0.8600 - val_loss: 4.0719 - val_gender_output_loss: 0.8140 - val_image_quality_output_loss: 0.5439 - val_age_output_loss: 0.4402 - val_weight_output_loss: 0.4113 - val_bag_output_loss: 0.5592 - val_footwear_output_loss: 0.4611 - val_pose_output_loss: 0.3374 - val_emotion_output_loss: 0.3903 - val_gender_output_acc: 0.7422 - val_image_quality_output_acc: 0.7056 - val_age_output_acc: 0.7972 - val_weight_output_acc: 0.8212 - val_bag_output_acc: 0.7334 - val_footwear_output_acc: 0.7789 - val_pose_output_acc: 0.8651 - val_emotion_output_acc: 0.8405
+Epoch 37/50
+
+Epoch 00037: LearningRateScheduler setting learning rate to 0.0002403076.
+360/360 [==============================] - 176s 488ms/step - loss: 2.8641 - gender_output_loss: 0.0880 - image_quality_output_loss: 0.4988 - age_output_loss: 0.4307 - weight_output_loss: 0.3952 - bag_output_loss: 0.4141 - footwear_output_loss: 0.4027 - pose_output_loss: 0.1705 - emotion_output_loss: 0.3493 - gender_output_acc: 0.9743 - image_quality_output_acc: 0.7425 - age_output_acc: 0.8021 - weight_output_acc: 0.8255 - bag_output_acc: 0.8179 - footwear_output_acc: 0.8152 - pose_output_acc: 0.9378 - emotion_output_acc: 0.8595 - val_loss: 3.7154 - val_gender_output_loss: 0.4572 - val_image_quality_output_loss: 0.5244 - val_age_output_loss: 0.4461 - val_weight_output_loss: 0.4167 - val_bag_output_loss: 0.5043 - val_footwear_output_loss: 0.4655 - val_pose_output_loss: 0.3963 - val_emotion_output_loss: 0.3896 - val_gender_output_acc: 0.8475 - val_image_quality_output_acc: 0.7240 - val_age_output_acc: 0.7991 - val_weight_output_acc: 0.8121 - val_bag_output_acc: 0.7624 - val_footwear_output_acc: 0.7809 - val_pose_output_acc: 0.8387 - val_emotion_output_acc: 0.8430
+Epoch 38/50
+
+Epoch 00038: LearningRateScheduler setting learning rate to 0.0002343201.
+360/360 [==============================] - 175s 487ms/step - loss: 2.8438 - gender_output_loss: 0.0875 - image_quality_output_loss: 0.4975 - age_output_loss: 0.4299 - weight_output_loss: 0.3946 - bag_output_loss: 0.4094 - footwear_output_loss: 0.4003 - pose_output_loss: 0.1629 - emotion_output_loss: 0.3461 - gender_output_acc: 0.9741 - image_quality_output_acc: 0.7446 - age_output_acc: 0.8009 - weight_output_acc: 0.8261 - bag_output_acc: 0.8222 - footwear_output_acc: 0.8166 - pose_output_acc: 0.9409 - emotion_output_acc: 0.8617 - val_loss: 3.7438 - val_gender_output_loss: 0.3970 - val_image_quality_output_loss: 0.5470 - val_age_output_loss: 0.4478 - val_weight_output_loss: 0.4151 - val_bag_output_loss: 0.5235 - val_footwear_output_loss: 0.5731 - val_pose_output_loss: 0.3285 - val_emotion_output_loss: 0.3959 - val_gender_output_acc: 0.8533 - val_image_quality_output_acc: 0.7139 - val_age_output_acc: 0.7983 - val_weight_output_acc: 0.8165 - val_bag_output_acc: 0.7497 - val_footwear_output_acc: 0.7574 - val_pose_output_acc: 0.8642 - val_emotion_output_acc: 0.8429
+Epoch 39/50
+
+Epoch 00039: LearningRateScheduler setting learning rate to 0.0002286237.
+359/360 [============================>.] - ETA: 0s - loss: 2.8113 - gender_output_loss: 0.0830 - image_quality_output_loss: 0.4945 - age_output_loss: 0.4294 - weight_output_loss: 0.3917 - bag_output_loss: 0.3984 - footwear_output_loss: 0.3934 - pose_output_loss: 0.1586 - emotion_output_loss: 0.3460 - gender_output_acc: 0.9771 - image_quality_output_acc: 0.7472 - age_output_acc: 0.8021 - weight_output_acc: 0.8265 - bag_output_acc: 0.8280 - footwear_output_acc: 0.8210 - pose_output_acc: 0.9440 - emotion_output_acc: 0.8606Epoch 39/50
+
+Epoch 00039: LearningRateScheduler setting learning rate to 0.0002286237.
+360/360 [==============================] - 176s 488ms/step - loss: 2.8112 - gender_output_loss: 0.0830 - image_quality_output_loss: 0.4945 - age_output_loss: 0.4294 - weight_output_loss: 0.3918 - bag_output_loss: 0.3985 - footwear_output_loss: 0.3931 - pose_output_loss: 0.1585 - emotion_output_loss: 0.3459 - gender_output_acc: 0.9771 - image_quality_output_acc: 0.7471 - age_output_acc: 0.8021 - weight_output_acc: 0.8265 - bag_output_acc: 0.8279 - footwear_output_acc: 0.8212 - pose_output_acc: 0.9440 - emotion_output_acc: 0.8607 - val_loss: 3.8069 - val_gender_output_loss: 0.4937 - val_image_quality_output_loss: 0.5444 - val_age_output_loss: 0.4423 - val_weight_output_loss: 0.4160 - val_bag_output_loss: 0.5662 - val_footwear_output_loss: 0.4732 - val_pose_output_loss: 0.3510 - val_emotion_output_loss: 0.4032 - val_gender_output_acc: 0.8329 - val_image_quality_output_acc: 0.7166 - val_age_output_acc: 0.7987 - val_weight_output_acc: 0.8208 - val_bag_output_acc: 0.7314 - val_footwear_output_acc: 0.7757 - val_pose_output_acc: 0.8590 - val_emotion_output_acc: 0.8440
+Epoch 40/50
+
+Epoch 00040: LearningRateScheduler setting learning rate to 0.0002231977.
+360/360 [==============================] - 176s 488ms/step - loss: 2.7751 - gender_output_loss: 0.0782 - image_quality_output_loss: 0.4929 - age_output_loss: 0.4289 - weight_output_loss: 0.3907 - bag_output_loss: 0.3910 - footwear_output_loss: 0.3867 - pose_output_loss: 0.1450 - emotion_output_loss: 0.3445 - gender_output_acc: 0.9783 - image_quality_output_acc: 0.7472 - age_output_acc: 0.8020 - weight_output_acc: 0.8288 - bag_output_acc: 0.8347 - footwear_output_acc: 0.8245 - pose_output_acc: 0.9503 - emotion_output_acc: 0.8621 - val_loss: 4.7392 - val_gender_output_loss: 1.2857 - val_image_quality_output_loss: 0.5350 - val_age_output_loss: 0.4422 - val_weight_output_loss: 0.4156 - val_bag_output_loss: 0.6556 - val_footwear_output_loss: 0.5021 - val_pose_output_loss: 0.3923 - val_emotion_output_loss: 0.3932 - val_gender_output_acc: 0.6273 - val_image_quality_output_acc: 0.7117 - val_age_output_acc: 0.7976 - val_weight_output_acc: 0.8140 - val_bag_output_acc: 0.6860 - val_footwear_output_acc: 0.7584 - val_pose_output_acc: 0.8461 - val_emotion_output_acc: 0.8344
+Epoch 41/50
+
+Epoch 00041: LearningRateScheduler setting learning rate to 0.0002180233.
+359/360 [============================>.] - ETA: 0s - loss: 2.7564 - gender_output_loss: 0.0833 - image_quality_output_loss: 0.4893 - age_output_loss: 0.4282 - weight_output_loss: 0.3893 - bag_output_loss: 0.3825 - footwear_output_loss: 0.3797 - pose_output_loss: 0.1422 - emotion_output_loss: 0.3440 - gender_output_acc: 0.9739 - image_quality_output_acc: 0.7527 - age_output_acc: 0.8021 - weight_output_acc: 0.8283 - bag_output_acc: 0.8380 - footwear_output_acc: 0.8264 - pose_output_acc: 0.9498 - emotion_output_acc: 0.8617
+Epoch 00041: LearningRateScheduler setting learning rate to 0.0002180233.
+360/360 [==============================] - 176s 489ms/step - loss: 2.7561 - gender_output_loss: 0.0835 - image_quality_output_loss: 0.4893 - age_output_loss: 0.4281 - weight_output_loss: 0.3896 - bag_output_loss: 0.3822 - footwear_output_loss: 0.3795 - pose_output_loss: 0.1421 - emotion_output_loss: 0.3438 - gender_output_acc: 0.9738 - image_quality_output_acc: 0.7527 - age_output_acc: 0.8021 - weight_output_acc: 0.8281 - bag_output_acc: 0.8381 - footwear_output_acc: 0.8265 - pose_output_acc: 0.9499 - emotion_output_acc: 0.8618 - val_loss: 3.7433 - val_gender_output_loss: 0.4490 - val_image_quality_output_loss: 0.5786 - val_age_output_loss: 0.4389 - val_weight_output_loss: 0.4099 - val_bag_output_loss: 0.5123 - val_footwear_output_loss: 0.4907 - val_pose_output_loss: 0.3566 - val_emotion_output_loss: 0.3889 - val_gender_output_acc: 0.8306 - val_image_quality_output_acc: 0.7046 - val_age_output_acc: 0.7980 - val_weight_output_acc: 0.8197 - val_bag_output_acc: 0.7562 - val_footwear_output_acc: 0.7811 - val_pose_output_acc: 0.8587 - val_emotion_output_acc: 0.8415
+Epoch 42/50
+
+Epoch 00042: LearningRateScheduler setting learning rate to 0.0002130833.
+359/360 [============================>.] - ETA: 0s - loss: 2.7082 - gender_output_loss: 0.0678 - image_quality_output_loss: 0.4845 - age_output_loss: 0.4274 - weight_output_loss: 0.3865 - bag_output_loss: 0.3706 - footwear_output_loss: 0.3747 - pose_output_loss: 0.1362 - emotion_output_loss: 0.3418 - gender_output_acc: 0.9834 - image_quality_output_acc: 0.7559 - age_output_acc: 0.8018 - weight_output_acc: 0.8301 - bag_output_acc: 0.8470 - footwear_output_acc: 0.8309 - pose_output_acc: 0.9524 - emotion_output_acc: 0.8631Epoch 42/50
+360/360 [==============================] - 175s 487ms/step - loss: 2.7085 - gender_output_loss: 0.0678 - image_quality_output_loss: 0.4844 - age_output_loss: 0.4274 - weight_output_loss: 0.3864 - bag_output_loss: 0.3708 - footwear_output_loss: 0.3750 - pose_output_loss: 0.1364 - emotion_output_loss: 0.3417 - gender_output_acc: 0.9835 - image_quality_output_acc: 0.7559 - age_output_acc: 0.8019 - weight_output_acc: 0.8303 - bag_output_acc: 0.8468 - footwear_output_acc: 0.8308 - pose_output_acc: 0.9523 - emotion_output_acc: 0.8631 - val_loss: 3.6769 - val_gender_output_loss: 0.4074 - val_image_quality_output_loss: 0.5325 - val_age_output_loss: 0.4510 - val_weight_output_loss: 0.4259 - val_bag_output_loss: 0.5108 - val_footwear_output_loss: 0.4879 - val_pose_output_loss: 0.3464 - val_emotion_output_loss: 0.3960 - val_gender_output_acc: 0.8460 - val_image_quality_output_acc: 0.7218 - val_age_output_acc: 0.7967 - val_weight_output_acc: 0.8015 - val_bag_output_acc: 0.7616 - val_footwear_output_acc: 0.7772 - val_pose_output_acc: 0.8634 - val_emotion_output_acc: 0.8347
+Epoch 43/50
+
+Epoch 00043: LearningRateScheduler setting learning rate to 0.0002083623.
+359/360 [============================>.] - ETA: 0s - loss: 2.6849 - gender_output_loss: 0.0686 - image_quality_output_loss: 0.4823 - age_output_loss: 0.4256 - weight_output_loss: 0.3839 - bag_output_loss: 0.3650 - footwear_output_loss: 0.3693 - pose_output_loss: 0.1317 - emotion_output_loss: 0.3392 - gender_output_acc: 0.9834 - image_quality_output_acc: 0.7575 - age_output_acc: 0.8011 - weight_output_acc: 0.8326 - bag_output_acc: 0.8492 - footwear_output_acc: 0.8319 - pose_output_acc: 0.9554 - emotion_output_acc: 0.8635
+Epoch 00043: LearningRateScheduler setting learning rate to 0.0002083623.
+360/360 [==============================] - 175s 487ms/step - loss: 2.6850 - gender_output_loss: 0.0687 - image_quality_output_loss: 0.4822 - age_output_loss: 0.4255 - weight_output_loss: 0.3839 - bag_output_loss: 0.3650 - footwear_output_loss: 0.3694 - pose_output_loss: 0.1316 - emotion_output_loss: 0.3393 - gender_output_acc: 0.9833 - image_quality_output_acc: 0.7575 - age_output_acc: 0.8011 - weight_output_acc: 0.8325 - bag_output_acc: 0.8491 - footwear_output_acc: 0.8319 - pose_output_acc: 0.9555 - emotion_output_acc: 0.8634 - val_loss: 3.7489 - val_gender_output_loss: 0.4110 - val_image_quality_output_loss: 0.5832 - val_age_output_loss: 0.4408 - val_weight_output_loss: 0.4095 - val_bag_output_loss: 0.5457 - val_footwear_output_loss: 0.4775 - val_pose_output_loss: 0.3667 - val_emotion_output_loss: 0.3948 - val_gender_output_acc: 0.8531 - val_image_quality_output_acc: 0.6956 - val_age_output_acc: 0.7980 - val_weight_output_acc: 0.8191 - val_bag_output_acc: 0.7361 - val_footwear_output_acc: 0.7760 - val_pose_output_acc: 0.8639 - val_emotion_output_acc: 0.8420
+Epoch 44/50
+
+Epoch 00044: LearningRateScheduler setting learning rate to 0.0002038459.
+360/360 [==============================] - 175s 486ms/step - loss: 2.6457 - gender_output_loss: 0.0602 - image_quality_output_loss: 0.4801 - age_output_loss: 0.4250 - weight_output_loss: 0.3828 - bag_output_loss: 0.3530 - footwear_output_loss: 0.3646 - pose_output_loss: 0.1238 - emotion_output_loss: 0.3363 - gender_output_acc: 0.9865 - image_quality_output_acc: 0.7578 - age_output_acc: 0.8024 - weight_output_acc: 0.8323 - bag_output_acc: 0.8574 - footwear_output_acc: 0.8366 - pose_output_acc: 0.9596 - emotion_output_acc: 0.8645 - val_loss: 3.9780 - val_gender_output_loss: 0.4653 - val_image_quality_output_loss: 0.5642 - val_age_output_loss: 0.4491 - val_weight_output_loss: 0.4341 - val_bag_output_loss: 0.6637 - val_footwear_output_loss: 0.4706 - val_pose_output_loss: 0.3913 - val_emotion_output_loss: 0.4195 - val_gender_output_acc: 0.8342 - val_image_quality_output_acc: 0.6967 - val_age_output_acc: 0.7958 - val_weight_output_acc: 0.8184 - val_bag_output_acc: 0.6900 - val_footwear_output_acc: 0.7723 - val_pose_output_acc: 0.8505 - val_emotion_output_acc: 0.8441
+Epoch 45/50
+
+Epoch 00045: LearningRateScheduler setting learning rate to 0.0001995211.
+360/360 [==============================] - 175s 487ms/step - loss: 2.6153 - gender_output_loss: 0.0642 - image_quality_output_loss: 0.4763 - age_output_loss: 0.4237 - weight_output_loss: 0.3803 - bag_output_loss: 0.3430 - footwear_output_loss: 0.3535 - pose_output_loss: 0.1187 - emotion_output_loss: 0.3350 - gender_output_acc: 0.9837 - image_quality_output_acc: 0.7597 - age_output_acc: 0.8030 - weight_output_acc: 0.8331 - bag_output_acc: 0.8637 - footwear_output_acc: 0.8415 - pose_output_acc: 0.9622 - emotion_output_acc: 0.8651 - val_loss: 3.8649 - val_gender_output_loss: 0.5154 - val_image_quality_output_loss: 0.5332 - val_age_output_loss: 0.4397 - val_weight_output_loss: 0.4109 - val_bag_output_loss: 0.5296 - val_footwear_output_loss: 0.4749 - val_pose_output_loss: 0.4438 - val_emotion_output_loss: 0.3967 - val_gender_output_acc: 0.8221 - val_image_quality_output_acc: 0.7218 - val_age_output_acc: 0.7990 - val_weight_output_acc: 0.8208 - val_bag_output_acc: 0.7614 - val_footwear_output_acc: 0.7772 - val_pose_output_acc: 0.8212 - val_emotion_output_acc: 0.8405
+Epoch 46/50
+
+Epoch 00046: LearningRateScheduler setting learning rate to 0.0001953761.
+359/360 [============================>.] - ETA: 0s - loss: 2.5852 - gender_output_loss: 0.0601 - image_quality_output_loss: 0.4736 - age_output_loss: 0.4242 - weight_output_loss: 0.3795 - bag_output_loss: 0.3310 - footwear_output_loss: 0.3517 - pose_output_loss: 0.1112 - emotion_output_loss: 0.3329 - gender_output_acc: 0.9853 - image_quality_output_acc: 0.7628 - age_output_acc: 0.8029 - weight_output_acc: 0.8342 - bag_output_acc: 0.8704 - footwear_output_acc: 0.8436 - pose_output_acc: 0.9652 - emotion_output_acc: 0.8656
+360/360 [==============================] - 175s 487ms/step - loss: 2.5859 - gender_output_loss: 0.0602 - image_quality_output_loss: 0.4735 - age_output_loss: 0.4242 - weight_output_loss: 0.3794 - bag_output_loss: 0.3313 - footwear_output_loss: 0.3518 - pose_output_loss: 0.1114 - emotion_output_loss: 0.3330 - gender_output_acc: 0.9852 - image_quality_output_acc: 0.7629 - age_output_acc: 0.8029 - weight_output_acc: 0.8342 - bag_output_acc: 0.8703 - footwear_output_acc: 0.8435 - pose_output_acc: 0.9651 - emotion_output_acc: 0.8655 - val_loss: 3.8769 - val_gender_output_loss: 0.4181 - val_image_quality_output_loss: 0.5401 - val_age_output_loss: 0.4519 - val_weight_output_loss: 0.4366 - val_bag_output_loss: 0.5459 - val_footwear_output_loss: 0.5099 - val_pose_output_loss: 0.4473 - val_emotion_output_loss: 0.4057 - val_gender_output_acc: 0.8495 - val_image_quality_output_acc: 0.7219 - val_age_output_acc: 0.7957 - val_weight_output_acc: 0.8197 - val_bag_output_acc: 0.7547 - val_footwear_output_acc: 0.7498 - val_pose_output_acc: 0.8187 - val_emotion_output_acc: 0.8429
+Epoch 47/50
+
+Epoch 00047: LearningRateScheduler setting learning rate to 0.0001913998.
+359/360 [============================>.] - ETA: 0s - loss: 2.5492 - gender_output_loss: 0.0566 - image_quality_output_loss: 0.4704 - age_output_loss: 0.4226 - weight_output_loss: 0.3748 - bag_output_loss: 0.3212 - footwear_output_loss: 0.3434 - pose_output_loss: 0.1081 - emotion_output_loss: 0.3305 - gender_output_acc: 0.9869 - image_quality_output_acc: 0.7645 - age_output_acc: 0.8028 - weight_output_acc: 0.8365 - bag_output_acc: 0.8763 - footwear_output_acc: 0.8469 - pose_output_acc: 0.9668 - emotion_output_acc: 0.8670
+360/360 [==============================] - 176s 488ms/step - loss: 2.5496 - gender_output_loss: 0.0570 - image_quality_output_loss: 0.4703 - age_output_loss: 0.4226 - weight_output_loss: 0.3747 - bag_output_loss: 0.3212 - footwear_output_loss: 0.3436 - pose_output_loss: 0.1081 - emotion_output_loss: 0.3305 - gender_output_acc: 0.9866 - image_quality_output_acc: 0.7646 - age_output_acc: 0.8028 - weight_output_acc: 0.8366 - bag_output_acc: 0.8763 - footwear_output_acc: 0.8468 - pose_output_acc: 0.9669 - emotion_output_acc: 0.8670 - val_loss: 4.0402 - val_gender_output_loss: 0.4586 - val_image_quality_output_loss: 0.6197 - val_age_output_loss: 0.4433 - val_weight_output_loss: 0.4159 - val_bag_output_loss: 0.7462 - val_footwear_output_loss: 0.4862 - val_pose_output_loss: 0.3488 - val_emotion_output_loss: 0.3995 - val_gender_output_acc: 0.8495 - val_image_quality_output_acc: 0.6556 - val_age_output_acc: 0.7974 - val_weight_output_acc: 0.8174 - val_bag_output_acc: 0.7201 - val_footwear_output_acc: 0.7722 - val_pose_output_acc: 0.8626 - val_emotion_output_acc: 0.8327
+Epoch 48/50
+
+Epoch 00048: LearningRateScheduler setting learning rate to 0.0001875821.
+359/360 [============================>.] - ETA: 0s - loss: 2.5235 - gender_output_loss: 0.0547 - image_quality_output_loss: 0.4672 - age_output_loss: 0.4226 - weight_output_loss: 0.3723 - bag_output_loss: 0.3150 - footwear_output_loss: 0.3378 - pose_output_loss: 0.1025 - emotion_output_loss: 0.3295 - gender_output_acc: 0.9877 - image_quality_output_acc: 0.7677 - age_output_acc: 0.8028 - weight_output_acc: 0.8385 - bag_output_acc: 0.8777 - footwear_output_acc: 0.8510 - pose_output_acc: 0.9689 - emotion_output_acc: 0.8678Epoch 48/50
+360/360 [==============================] - 176s 490ms/step - loss: 2.5237 - gender_output_loss: 0.0546 - image_quality_output_loss: 0.4672 - age_output_loss: 0.4227 - weight_output_loss: 0.3724 - bag_output_loss: 0.3150 - footwear_output_loss: 0.3377 - pose_output_loss: 0.1026 - emotion_output_loss: 0.3294 - gender_output_acc: 0.9877 - image_quality_output_acc: 0.7677 - age_output_acc: 0.8028 - weight_output_acc: 0.8383 - bag_output_acc: 0.8777 - footwear_output_acc: 0.8511 - pose_output_acc: 0.9688 - emotion_output_acc: 0.8678 - val_loss: 4.1079 - val_gender_output_loss: 0.4272 - val_image_quality_output_loss: 0.5412 - val_age_output_loss: 0.4455 - val_weight_output_loss: 0.4170 - val_bag_output_loss: 0.8106 - val_footwear_output_loss: 0.5415 - val_pose_output_loss: 0.3927 - val_emotion_output_loss: 0.4100 - val_gender_output_acc: 0.8591 - val_image_quality_output_acc: 0.7060 - val_age_output_acc: 0.7948 - val_weight_output_acc: 0.8206 - val_bag_output_acc: 0.7182 - val_footwear_output_acc: 0.7382 - val_pose_output_acc: 0.8485 - val_emotion_output_acc: 0.8191
+Epoch 49/50
+
+Epoch 00049: LearningRateScheduler setting learning rate to 0.0001839137.
+360/360 [==============================] - 176s 490ms/step - loss: 2.4929 - gender_output_loss: 0.0566 - image_quality_output_loss: 0.4615 - age_output_loss: 0.4212 - weight_output_loss: 0.3701 - bag_output_loss: 0.3058 - footwear_output_loss: 0.3292 - pose_output_loss: 0.0986 - emotion_output_loss: 0.3272 - gender_output_acc: 0.9871 - image_quality_output_acc: 0.7746 - age_output_acc: 0.8027 - weight_output_acc: 0.8386 - bag_output_acc: 0.8853 - footwear_output_acc: 0.8558 - pose_output_acc: 0.9720 - emotion_output_acc: 0.8679 - val_loss: 3.8784 - val_gender_output_loss: 0.4749 - val_image_quality_output_loss: 0.5614 - val_age_output_loss: 0.4428 - val_weight_output_loss: 0.4142 - val_bag_output_loss: 0.5854 - val_footwear_output_loss: 0.4846 - val_pose_output_loss: 0.3824 - val_emotion_output_loss: 0.4098 - val_gender_output_acc: 0.8407 - val_image_quality_output_acc: 0.7097 - val_age_output_acc: 0.7947 - val_weight_output_acc: 0.8157 - val_bag_output_acc: 0.7451 - val_footwear_output_acc: 0.7725 - val_pose_output_acc: 0.8535 - val_emotion_output_acc: 0.8434
+Epoch 50/50
+
+Epoch 00050: LearningRateScheduler setting learning rate to 0.000180386.
+359/360 [============================>.] - ETA: 0s - loss: 2.4645 - gender_output_loss: 0.0508 - image_quality_output_loss: 0.4565 - age_output_loss: 0.4203 - weight_output_loss: 0.3679 - bag_output_loss: 0.2981 - footwear_output_loss: 0.3250 - pose_output_loss: 0.0978 - emotion_output_loss: 0.3251 - gender_output_acc: 0.9889 - image_quality_output_acc: 0.7765 - age_output_acc: 0.8031 - weight_output_acc: 0.8411 - bag_output_acc: 0.8870 - footwear_output_acc: 0.8577 - pose_output_acc: 0.9712 - emotion_output_acc: 0.8695
+Epoch 00050: LearningRateScheduler setting learning rate to 0.000180386.
+360/360 [==============================] - 176s 489ms/step - loss: 2.4655 - gender_output_loss: 0.0507 - image_quality_output_loss: 0.4566 - age_output_loss: 0.4203 - weight_output_loss: 0.3680 - bag_output_loss: 0.2983 - footwear_output_loss: 0.3252 - pose_output_loss: 0.0978 - emotion_output_loss: 0.3254 - gender_output_acc: 0.9888 - image_quality_output_acc: 0.7765 - age_output_acc: 0.8031 - weight_output_acc: 0.8411 - bag_output_acc: 0.8869 - footwear_output_acc: 0.8576 - pose_output_acc: 0.9711 - emotion_output_acc: 0.8694 - val_loss: 3.9748 - val_gender_output_loss: 0.4281 - val_image_quality_output_loss: 0.5454 - val_age_output_loss: 0.4693 - val_weight_output_loss: 0.4605 - val_bag_output_loss: 0.5663 - val_footwear_output_loss: 0.5253 - val_pose_output_loss: 0.4470 - val_emotion_output_loss: 0.4095 - val_gender_output_acc: 0.8536 - val_image_quality_output_acc: 0.7145 - val_age_output_acc: 0.7901 - val_weight_output_acc: 0.7681 - val_bag_output_acc: 0.7584 - val_footwear_output_acc: 0.7734 - val_pose_output_acc: 0.8564 - val_emotion_output_acc: 0.8285
+
+<keras.callbacks.History at 0x7f07d0231630>
