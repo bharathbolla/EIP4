@@ -6,7 +6,15 @@
 ### val_bag_output_acc: 0.7584 ; val_footwear_output_acc: 0.7734 ;
 ### val_pose_output_acc: 0.8564 - val_emotion_output_acc: 0.8285 ;
 
-## Settled with Resnet146V1 with 32 filters. Changed last layer activation to 'sigmoid' and loss to "binary cross entropy", this improved my accuracy scores. Also added droput. 
+### Settled with Resnet146V1 with 32 filters. Changed last layer activation to 'sigmoid' and loss to "binary cross entropy", this improved my accuracy scores. Also added droput. 
+
+## References
+#### https://medium.com/@vijayabhaskar96/multi-label-image-classification-tutorial-with-keras-imagedatagenerator-cd541f8eaf24
+#### https://androidkt.com/multi-label-image-classification-model-in-keras/
+#### https://towardsdatascience.com/multi-label-image-classification-with-neural-network-keras-ddc1ab1afede
+#### https://gombru.github.io/2018/05/23/cross_entropy_loss/
+#### https://www.analyticsvidhya.com/blog/2019/04/build-first-multi-label-image-classification-model-python/
+
 
 ## Model: ResNet146v1
 ## Parameters
